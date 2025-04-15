@@ -1,0 +1,67 @@
+FROM debian:buster
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV LAT="37.7749"
+ENV LON="-122.4194"
+
+# Install dependencies
+RUN apt update && apt install -y \
+    git \
+    build-essential \
+    debhelper \
+    librtlsdr-dev \
+    pkg-config \
+    lighttpd \
+    libncurses-dev \
+    rtl-sdr \
+    curl \
+    ca-certificates \
+    netcat \
+    iputils-ping \
+    procps \
+    nano \
+    htop
+
+# Clone dump1090-fa
+RUN git clone https://github.com/flightaware/dump1090.git /opt/dump1090
+
+# Build dump1090
+WORKDIR /opt/dump1090
+
+RUN make -j$(nproc)
+
+# Set up web interface and lighttpd config
+RUN mkdir -p /var/www/html/dump1090-fa && \
+    cp -r /opt/dump1090/public_html/* /var/www/html/dump1090-fa && \
+    chown -R www-data:www-data /var/www/html && \
+    chmod -R 755 /var/www/html && \
+    echo 'server.modules += ( "mod_alias", "mod_accesslog", "mod_indexfile" )' > /etc/lighttpd/lighttpd.conf && \
+    echo 'server.document-root = "/var/www/html"' >> /etc/lighttpd/lighttpd.conf && \
+    echo 'alias.url = (' >> /etc/lighttpd/lighttpd.conf && \
+    echo '  "/dump1090-fa/data/" => "/run/dump1090-fa/",' >> /etc/lighttpd/lighttpd.conf && \
+    echo '  "/dump1090-fa/" => "/var/www/html/dump1090-fa/",' >> /etc/lighttpd/lighttpd.conf && \
+    echo '  "/data/" => "/run/dump1090-fa/"' >> /etc/lighttpd/lighttpd.conf && \
+    echo ')' >> /etc/lighttpd/lighttpd.conf && \
+    echo 'index-file.names = ( "index.html" )' >> /etc/lighttpd/lighttpd.conf && \
+    echo 'mimetype.assign = (' >> /etc/lighttpd/lighttpd.conf && \
+    echo '  ".html" => "text/html",' >> /etc/lighttpd/lighttpd.conf && \
+    echo '  ".css"  => "text/css",' >> /etc/lighttpd/lighttpd.conf && \
+    echo '  ".js"   => "application/javascript",' >> /etc/lighttpd/lighttpd.conf && \
+    echo '  ".png"  => "image/png",' >> /etc/lighttpd/lighttpd.conf && \
+    echo '  ".jpg"  => "image/jpeg",' >> /etc/lighttpd/lighttpd.conf && \
+    echo '  ".ico"  => "image/x-icon",' >> /etc/lighttpd/lighttpd.conf && \
+    echo '  ".svg"  => "image/svg+xml",' >> /etc/lighttpd/lighttpd.conf && \
+    echo '  ".json" => "application/json"' >> /etc/lighttpd/lighttpd.conf && \
+    echo ')' >> /etc/lighttpd/lighttpd.conf && \
+    echo 'server.port = 8080' >> /etc/lighttpd/lighttpd.conf
+
+# Add entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Expose web UI and ADS-B ports
+EXPOSE 8080
+EXPOSE 30001 30002 30003 30005
+
+# Start services
+CMD ["/entrypoint.sh"]

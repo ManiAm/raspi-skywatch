@@ -1,0 +1,28 @@
+FROM debian:bullseye
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    wget \
+    gnupg \
+    ca-certificates \
+    netcat \
+    iputils-ping \
+    procps \
+    htop \
+    nano
+
+RUN wget https://flightaware.com/adsb/piaware/files/packages/pool/piaware/f/flightaware-apt-repository/flightaware-apt-repository_1.2_all.deb && \
+    dpkg -i flightaware-apt-repository_1.2_all.deb && \
+    rm flightaware-apt-repository_1.2_all.deb
+
+RUN apt-get update && \
+    apt-get install -y piaware
+
+# Configure PiAware to run in foreground
+RUN sed -i 's/^daemonize yes/daemonize no/' /etc/piaware.conf
+
+# Expose PiAware status port
+EXPOSE 30104
+
+CMD ["piaware", "-plainlog"]

@@ -1,0 +1,41 @@
+services:
+  dump1090:
+    image: dump1090-image
+    container_name: dump1090-fa
+    hostname: dump1090-fa
+    restart: on-failure:3
+    environment:
+      - LAT=37.91342     # NOTE: Replace with your actual latitude
+      - LON=-122.05898   # NOTE: Replace with your actual longitude
+    ports:
+      - "8080:8080"      # Web interface for live map (lighttpd)
+      - "30001:30001"    # RAW Beast input: Raw binary input from external sources (rarely used unless feeding from another decoder)
+      - "30002:30002"    # RAW Beast output: Raw binary ADS-B output (Beast format) for external consumers (e.g. FR24, RBFeeder, other tools)
+      - "30003:30003"    # SBS output (TCP): Human-readable ADS-B output in SBS-1 format (text-based, e.g. used by Virtual Radar Server)
+      - "30005:30005"    # RAW Beast output (for PiAware): Main output port used by feeders like PiAware, FR24, etc. for MLAT and ADS-B data
+    devices:
+      - "/dev/bus/usb:/dev/bus/usb"  # Pass USB device for RTL-SDR
+    privileged: true                 # ensures USB access across systems
+    networks:
+      - adsb-net
+
+  piaware:
+    image: piaware-image
+    container_name: piaware
+    hostname: piaware
+    restart: on-failure:3
+    volumes:
+      - ./piaware.conf:/etc/piaware.conf
+    healthcheck:
+      test: ["CMD", "pgrep", "piaware"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      - dump1090
+    networks:
+      - adsb-net
+
+networks:
+  adsb-net:
+    driver: bridge
