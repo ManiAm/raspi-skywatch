@@ -19,6 +19,29 @@ services:
     networks:
       - adsb-net
 
+  tar1090:
+    image: ghcr.io/sdr-enthusiasts/docker-tar1090:latest
+    container_name: tar1090
+    hostname: tar1090
+    restart: on-failure:3
+    environment:
+      - TZ=America/Los_Angeles
+      - BEASTHOST=dump1090-fa
+      - BEASTPORT=30005
+      - LAT=37.91342     # NOTE: Replace with your actual latitude
+      - LONG=-122.05898  # NOTE: Replace with your actual longitude
+    ports:
+      - "8078:80"  # Web interface for tar1090
+    volumes:
+      - tar1090-globe-history:/var/globe_history
+      - tar1090-timelapse1090:/var/timelapse1090
+      - tar1090-graphs1090:/var/lib/collectd
+    tmpfs:
+      - /run:exec,size=64M
+      - /var/log
+    networks:
+      - adsb-net
+
   piaware:
     image: piaware-image
     container_name: piaware
@@ -35,6 +58,11 @@ services:
       - dump1090
     networks:
       - adsb-net
+
+volumes:
+  tar1090-globe-history:
+  tar1090-timelapse1090:
+  tar1090-graphs1090:
 
 networks:
   adsb-net:

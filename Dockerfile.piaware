@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
     wget \
     gnupg \
     ca-certificates \
-    netcat \
+    net-tools \
     iputils-ping \
     procps \
     htop \

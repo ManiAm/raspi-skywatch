@@ -16,7 +16,7 @@ RUN apt update && apt install -y \
     rtl-sdr \
     curl \
     ca-certificates \
-    netcat \
+    net-tools \
     iputils-ping \
     procps \
     nano \
