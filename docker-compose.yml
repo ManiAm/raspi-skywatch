@@ -39,6 +39,8 @@ services:
     tmpfs:
       - /run:exec,size=64M
       - /var/log
+    depends_on:
+      - dump1090
     networks:
       - adsb-net
 
@@ -59,10 +61,31 @@ services:
     networks:
       - adsb-net
 
+  postgres:
+    image: postgres:17.4
+    container_name: pg_flight
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: flight
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7.4
+    container_name: redis_db
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
 volumes:
   tar1090-globe-history:
   tar1090-timelapse1090:
   tar1090-graphs1090:
+  pgdata:
 
 networks:
   adsb-net:

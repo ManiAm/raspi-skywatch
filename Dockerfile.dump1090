@@ -4,7 +4,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV LAT="37.7749"
 ENV LON="-122.4194"
 
-# Install dependencies
 RUN apt update && apt install -y \
     git \
     build-essential \
@@ -22,10 +21,8 @@ RUN apt update && apt install -y \
     nano \
     htop
 
-# Clone dump1090-fa
 RUN git clone https://github.com/flightaware/dump1090.git /opt/dump1090
 
-# Build dump1090
 WORKDIR /opt/dump1090
 
 RUN make -j$(nproc)
@@ -55,7 +52,6 @@ RUN mkdir -p /var/www/html/dump1090-fa && \
     echo ')' >> /etc/lighttpd/lighttpd.conf && \
     echo 'server.port = 8080' >> /etc/lighttpd/lighttpd.conf
 
-# Add entrypoint script
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
@@ -63,5 +59,4 @@ RUN chmod +x /entrypoint.sh
 EXPOSE 8080
 EXPOSE 30001 30002 30003 30005
 
-# Start services
 CMD ["/entrypoint.sh"]

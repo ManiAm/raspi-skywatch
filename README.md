@@ -1,94 +1,26 @@
-# Skywatch
+# Real-Time Aircraft Monitoring and Alert System
 
-<todo>
+SkyWatch is a Python-based, real-time aircraft monitoring tool designed to ingest live ADS-B broadcasts in SBS format from a local `dump1090-fa` instance. It processes, enriches, and stores aviation data for analysis and alerting.
 
-Briefly describe the project.
+Key Features
 
-then say lets go over some background.
+- **Real-Time Data Ingestion**: Listens to aircraft transponder messages via port 30003 and decodes them into structured flight data.
 
-## ADS-B
+- **Data Enrichment**: Augments received SBS messages using third-party APIs to retrieve detailed aircraft specifications, operator information, flight routing, and aircraft images.
 
-ADS-B (Automatic Dependent Surveillance–Broadcast) is a surveillance technology used in aviation that allows aircraft to automatically broadcast their position, velocity, altitude, and other flight data to air traffic control and nearby aircraft. It relies on GPS for precise positioning (automatic), data is sent without being requested (dependent), and it is broadcast continuously via radio signals.
+- **Caching with Redis**: Frequently accessed data is cached in a local Redis instance to reduce redundant external API calls and improve performance.
 
-ADS-B enhances situational awareness, reduces the need for radar, and supports more efficient air traffic management. It plays a crucial role in modern airspace systems, enabling features like real-time tracking, improved safety, and separation in both controlled and uncontrolled airspace.
+- **Persistent Storage**: All enriched aircraft data is stored in a PostgreSQL database for long-term analysis and historical referencing.
 
-## ADS-B Frequencies
+- **Proximity-Based Alerts**: Sends real-time notifications (via Discord) when an aircraft enters a predefined radius around your location/house.
 
-1090 MHz and 978 MHz are two frequencies used for ADS-B, and they serve different purposes and aircraft types.
+- **GNSS Integration**: Leverages a connected GNSS module via `gpsd` to obtain precise geographic coordinates for alert accuracy. For more details, refer to the [NTP Server Project](https://github.com/ManiAm/raspi-ntp-server) which shares the same GNSS timing infrastructure.
 
-- `1090 MHz` (Mode S / ES) is the global standard used by commercial airliners, business jets, and most transponder-equipped aircraft, transmitting extended squitter messages received by radar and ADS-B ground stations worldwide.
-
-- `978 MHz` (UAT - Universal Access Transceiver) is only used in the United States, primarily by General Aviation (GA) aircraft flying below 18,000 feet, offering additional weather and traffic data services through the FAA.
-
-While 1090 MHz is required for high-altitude or international flights, 978 MHz provides a lower-cost option with added benefits for U.S.-based GA pilots.
-
-## ADS-B Receivers
-
-Devices that receive ADS-B data are commonly referred to as ADS-B receivers.
-
-These include a range of hardware types such as:
-
-- USB SDR dongles  (e.g., FlightAware Pro Stick, RTL-SDR)
-- Standalone receivers (e.g., RadarBox XRange series)
-- Integrated avionics systems onboard aircraft
-
-On the ground, these receivers capture ADS-B transmissions broadcast by aircraft on either 1090 MHz or 978 MHz, then decode the data using software for visualization, logging, or relaying to flight tracking networks like FlightAware or RadarBox. Some high-end receivers may include built-in GPS, filtering, and networking capabilities for precise timekeeping and multi-lateration (MLAT) support.
-
-## USB Software-Defined Radio (SDR) Dongles
-
-Here are well-known USB SDR dongles, which function as radio receivers capable of decoding ADS-B signals:
-
-| Feature / Model              | Pro Stick (1090) | Pro Stick Plus (1090)  | Pro Stick 978        | RB FlightStick (1090)  | RB FlightStick (978) |
-|------------------------------|------------------|------------------------|----------------------|------------------------|----------------------|
-| **Company**                  | FlightAware      | FlightAware            | FlightAware          | AirNav Systems         | AirNav Systems       |
-| **Year Introduced**          | ~2016            | ~2017                  | ~2018                | ~2019                  | ~2020                |
-| **Primary Frequency**        | 1090 MHz         | 1090 MHz               | 978 MHz              | 1090 MHz               | 978 MHz              |
-| **Built-in Amplifier (LNA)** | Yes              | Yes                    | Yes                  | Yes                    | Yes                  |
-| **Bandpass Filter**          | `No`             | Yes                    | Yes                  | Yes                    | Yes                  |
-| **TCXO (Low-drift)**         | 0.5 ppm          | 0.5 ppm                | 0.5 ppm              | Yes                    | Yes                  |
-| **Bias-T Power Supply**      | `No`             | `No`                   | `No`                 | Yes                    | Yes                  |
-| **ESD Protection**           | `No`             | `No`                   | `No`                 | Yes                    | Yes                  |
-| **MLAT Support**             | Yes              | Yes                    | `No`                 | Yes                    | `No`                 |
-
-These dongles do not operate independently; they require connection to a host system, such as a Raspberry Pi, desktop, or laptop, to process the incoming data. The host runs the necessary software to decode, visualize, and optionally feed the data to flight tracking networks. 
-
-All USB SDR dongles above are based on the Realtek `RTL2832U` chipset. It is a low-cost USB demodulator chip originally designed for receiving digital TV signals (DVB-T) on a computer. What makes it unique and widely popular in the SDR community is its ability to expose raw I/Q (in-phase and quadrature) data from the tuner when paired with compatible RF front-ends like the Rafael Micro R820T. This capability allows the chip to be repurposed for a wide range of radio frequency applications beyond TV, such as listening to FM radio, decoding weather satellite images, receiving ADS-B aircraft signals, and more—transforming it into an affordable SDR platform for both hobbyists and researchers.
-
-Two major companies that manufacture and sell ADS-B receivers, especially for hobbyist and enthusiast use:
-
-- FlightAware is a leading aviation data company headquartered in Houston, Texas, USA. It provides PiAware, an open-source software suite designed for Raspberry Pi devices, enabling the reception, decoding, and sharing of ADS-B data. FlightAware operates a global network of over 37,000 ADS-B ground stations, significantly enhancing real-time flight tracking coverage across the world.
-
-- AirNav Systems, based in Tampa, Florida, USA, is the company behind RadarBox, a comprehensive flight tracking platform that integrates data from ADS-B receivers, satellite feeds, FAA data, and other aviation sources. The company maintains a network of over 29,000 ADS-B feeders worldwide, supporting its extensive and accurate global flight tracking infrastructure.
-
-## dump1090
-
-dump1090 is an open-source Mode S decoder specifically designed to work with RTL-SDR USB receivers to capture and decode ADS-B signals broadcast by aircraft. It receives data on the 1090 MHz frequency, extracting real-time information such as aircraft position, altitude, speed, and identification.
-
-The repository [antirez/dump1090](https://github.com/antirez/dump1090) was the original implementation of dump1090, created by Salvatore Sanfilippo, better known as antirez — the same developer who created the Redis in-memory database. It was created around 2013 as a quick-and-efficient way to decode ADS-B signals from aircraft using the then-new RTL-SDR dongles. It was written in C and focused on speed and simplicity. This repository is no longer maintained.
-
-Although `antirez/dump1090` was minimal and barebones, it sparked the interest of hobbyists and developers. This led to multiple community forks that added features like:
-
-- Interactive web-based maps (SkyAware)
-- Networking for feeding data to aggregation services (FlightAware, FR24)
-- Better support for filtering, gain control, and aircraft state tracking
-
-There are multiple forks of `antirez/dump1090`, but FlightAware's [fork](https://github.com/flightaware/dump1090) is actively maintained and widely used today.
-
-## ADS-B Data Feeder
-
-An ADS-B data feeder is a software service or tool that collects real-time aircraft position data—broadcast via ADS-B signals—from a local receiver (usually an RTL-SDR dongle running with software like dump1090) and transmits it to an aviation tracking network such as FlightAware, Flightradar24, or RadarBox. These feeders enable global flight tracking services to aggregate data from thousands of volunteer-operated receivers worldwide, enhancing their coverage, accuracy, and visibility of aircraft even in remote areas. Feeder software often includes tools for decoding, formatting, and securely uploading the data, and many networks offer benefits to contributors, such as free premium access.
-
-| Feeder Software            | Primary Network(s)         | Description                                                                                                                  |
-|----------------------------|----------------------------|------------------------------------------------------------------------------------------------------------------------------|
-| **PiAware**                | FlightAware                | Official feeder for FlightAware; includes `dump1090-fa` and SkyAware UI. Highly popular for its ease of use and integration. |
-| **FR24 Feeder**            | Flightradar24              | Feeds data to Flightradar24; supports RTL-SDR or external sources like `dump1090`. Easy to install and configure.            |
-| **RBFeeder**               | RadarBox (AirNav Systems)  | Feeds ADS-B data to RadarBox; supports both 1090 MHz and 978 MHz. Offers filtering and status dashboard.                     |
-| **ADS-B Exchange Feeder**  | ADS-B Exchange             | Sends unfiltered ADS-B data to ADS-B Exchange. Preferred by enthusiasts seeking open tracking.                               |
-| **OpenSky Feeder**         | OpenSky Network            | Research-focused network with strict data quality; less popular but valuable for academic use.                               |
+For more background on how ADS-B works and the data used by this project, see [Background Information](./BACKGROUND.md).
 
 ## Wiring and Device Detection
 
-The hardware configuration is like the following:
+The hardware configuration of skyWatch project is like the following:
 
 <img src="pics/hw_config.jpg" alt="segment" width="800">
 
@@ -125,13 +57,13 @@ The signal flow is:
 - Raspberry Pi
 
     Finally, the digitized signal reaches the Raspberry Pi, where it is processed by dump1090.
-    
+
     ```text
     [dump1090] ──> [Feeder (PiAware, FR24 Feeder, RBFeeder)] ──> Network
                     │
                     └──> [Web UI like SkyAware or Virtual Radar Server (VRS)]
     ```
-    
+
     dump1090 decodes the ADS-B messages and can display aircraft positions on a real-time map using the SkyAware web interface. Additionally, the Pi can run feeder clients like PiAware, FR24 Feeder, or RBFeeder to send this decoded data to global flight tracking networks. This stage is the brain of the operation — decoding, visualizing, and sharing live aircraft data.
 
 To check if the FlightAware Pro Stick Plus is properly connected and recognized by Raspberry Pi:
@@ -166,7 +98,7 @@ Found 1 device(s):
 Using device 0: Generic RTL2832U
 Detached kernel driver
 Found Rafael Micro R820T tuner
-Supported gain values (29): 0.0 0.9 1.4 ... 
+Supported gain values (29): 0.0 0.9 1.4 ...
 [R82XX] PLL not locked!
 Sampling at 2048000 S/s.
 No E4000 tuner found, aborting.
@@ -184,9 +116,27 @@ Project structure looks like the following:
     ├── Dockerfile.piaware
     ├── docker-compose.yml
     ├── entrypoint.sh
-    └── piaware.conf
+    ├── piaware.conf
+    ├── requirements.txt
+    └── skywatch/
+        ├── db/
+        |   ├── FAA-201810.csv
+        |   ├── ICAO-doc8643-2019.csv
+        │   ├── aircraft_types.json
+        │   ├── airlines.json
+        │   ├── airplanes.json
+        │   ├── airports.json
+        │   ├── cities.json
+        │   └── countries.json
+        ├── skywatch.py
+        ├── models_redis.py
+        ├── models_sql.py
+        ├── rest_client.py
+        ├── get_aircraft_svg.py
+        ├── utility.py
+        └── .env   ---> Your Private API token
 
-### Getting Started
+## Getting Started
 
 Go to the project root directory:
 
@@ -217,7 +167,7 @@ Check the `dump1090-fa` container logs to make sure everything is working as exp
 docker logs dump1090-fa
 
 Mon Apr 21 22:48:58 2025 UTC  dump1090-fa unknown starting up.
-2025-04-21 22:48:58: (server.c.1464) server started (lighttpd/1.4.53) 
+2025-04-21 22:48:58: (server.c.1464) server started (lighttpd/1.4.53)
 rtlsdr: using device #0: Generic RTL2832U (Realtek, RTL2832U, SN 00001000)
 Detached kernel driver
 Found Rafael Micro R820T tuner
@@ -227,12 +177,12 @@ Allocating 4 zero-copy buffers
 
 dump1090 creates a set of JSON files in `/run/dump1090-fa/`:
 
-| File              | Purpose                                                                            |
-|-------------------|------------------------------------------------------------------------------------|
-| `aircraft.json`   | Live data for currently tracked aircraft (position, altitude, speed, etc.)         |
-| `receiver.json`   | Information about the receiver (uptime, version, timestamp)                        |
-| `stats.json`      | Receiver statistics and message processing metrics                                 |
-| `history_*.json`  | Rolling 10-minute history used for aircraft trails and motion smoothing on the map |
+| File              | Purpose                                                                             |
+|-------------------|-------------------------------------------------------------------------------------|
+| `aircraft.json`   | Live data for currently tracked aircraft (position, altitude, speed, etc.)          |
+| `receiver.json`   | Information about the receiver (uptime, version, timestamp)                         |
+| `stats.json`      | Receiver statistics and message processing metrics                                  |
+| `history_*.json`  | Rolling 10-minute history used for aircraft trails and motion smoothing on the map  |
 
 ### SkyAware UI
 
@@ -242,14 +192,7 @@ The SkyAware UI is a real-time, browser-based interface included with FlightAwar
 
 The interface also includes dynamic range rings. A range ring is a visual overlay displayed on the SkyAware map that shows concentric circles centered around your ADS-B receiver's location, representing fixed distances (e.g., 50, 100, 150 kilometers or miles). These rings help you quickly gauge how far away aircraft are from your station and assess your reception range in all directions. Range rings are especially useful for identifying coverage gaps, visualizing signal strength zones, and understanding the effective reach of your antenna setup.
 
-TODO: `<picture>`
-
-
-TODO:
-My current location is Walnut Creek.
-I am using an indoor antenna behind window and can cover an area of 20 miles.
-We have multiple airports around - mention their names.
-
+<img src="pics/skyaware.jpg" alt="segment" width="800">
 
 SkyAware’s flight history relies on a series of JSON files (`history_*.json`) that are generated by dump1090-fa in the `/run/dump1090-fa/` directory. Each file contains a snapshot of aircraft detected during a short interval (typically every 5 seconds), including metadata such as ICAO hex code, position, altitude, speed, and signal strength. The SkyAware UI continuously reads these files to animate recent aircraft movements on the map, giving users a visual sense of flight paths over the past several minutes. Once the history buffer reaches its limit (usually 120 entries), the oldest files are overwritten in a circular fashion. This history is stored in memory-backed temporary storage, meaning it is not persistent and is lost when the system or service is restarted.
 
@@ -277,7 +220,7 @@ Designed for enthusiasts and advanced users, it provides a dynamic map showing a
 PiAware is the uploader client that connects to your local dump1090-fa and forwards aircraft data to FlightAware’s servers, and also enables MLAT participation and statistics on your FA profile.
 
 ```bash
-docker logs piaware
+docker logs -f piaware
 ****************************************************
 piaware version 10.0.1 is running, process ID 1
 your system info is: Linux piaware 6.8.0-1020-raspi
@@ -286,16 +229,33 @@ Connection with adept server at piaware.flightaware.com/1200 established
 TLS handshake with adept server at piaware.flightaware.com/1200 completed
 FlightAware server certificate validated
 encrypted session established with FlightAware
+Starting faup1090: /usr/lib/piaware/helpers/faup1090 --net-bo-ipaddr dump1090-fa --net-bo-port 30005 --stdout
+Started faup1090 (pid 22) to connect to the ADS-B data program at dump1090-fa/30005
+UAT support disabled by local configuration setting: uat-receiver-type
 logged in to FlightAware as user guest
-my feeder ID is xxxxxx
-no ADS-B data program seen listening on port 30005 for 3 seconds, next check in 60s
+my feeder ID is xxxx
+piaware received a message from the ADS-B data program at dump1090-fa/30005!
+piaware has successfully sent several msgs to FlightAware!
+18 msgs recv'd from the ADS-B data program at dump1090-fa/30005; 18 msgs sent to FlightAware
 ```
 
-list the benefits of being a feeder.
+Piaware establishes a secure (TLS) connection with the FlightAware adept server on port 1200. This is the outbound connection that pushes your ADS-B data to FlightAware. It then spawns a helper called `faup1090` which connects to the Beast-format binary output on port 30005 at host `dump1090-fa`. You are authenticated, and FlightAware assigns your system a unique feeder ID. This is how your aircraft data is tracked and credited on their platform. Claiming your feeder is the next and final step to fully link your local setup to your FlightAware account. Visit this link:
 
-## Custom Project
+    https://flightaware.com/adsb/piaware/claim/<YOUR-FEEDER-ID>
 
-i want to use python to read data and interpret them
+When you claim your feeder, FlightAware tells your piaware instance to reconnect and log in as you (instead of the default "guest" user). It is also going to link to your account and assign a site number.
 
-create python virtual env
+Hosting a FlightAware ADS-B receiver (FlightFeeder) provides benefits to both the individual and the broader FlightAware community. As a feeder, you receive a complimentary FlightAware Enterprise Account with access to advanced features, statistics, and free equipment. The community benefits from increased data coverage and the opportunity to explore more aircraft tracks, including those assisted by MLAT. FlightAware Enterprise accounts provide access to FlightAware AeroAPI (formerly FlightXML), which is their official REST API platform for programmatic access to live and historical flight data.
 
+## Running SkyWatch
+
+Set up a Python virtual environment and install the required dependencies listed in requirements.txt:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+
+<img src="pics/shapes.jpg" alt="segment" width="600">

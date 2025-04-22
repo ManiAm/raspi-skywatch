@@ -1,0 +1,1880 @@
+[
+  {
+    "id": "22228",
+    "iata_code": "100",
+    "aircraft_name": "Fokker 100",
+    "plane_type_id": "1"
+  },
+  {
+    "id": "22229",
+    "iata_code": "141",
+    "aircraft_name": "British Aerospace BAe 146-100",
+    "plane_type_id": "2"
+  },
+  {
+    "id": "22230",
+    "iata_code": "142",
+    "aircraft_name": "British Aerospace BAe 146-200",
+    "plane_type_id": "3"
+  },
+  {
+    "id": "22231",
+    "iata_code": "143",
+    "aircraft_name": "British Aerospace BAe 146-300",
+    "plane_type_id": "4"
+  },
+  {
+    "id": "22232",
+    "iata_code": "146",
+    "aircraft_name": "British Aerospace BAe 146",
+    "plane_type_id": "5"
+  },
+  {
+    "id": "22233",
+    "iata_code": "14F",
+    "aircraft_name": "British Aerospace BAe 146 Freighter",
+    "plane_type_id": "6"
+  },
+  {
+    "id": "22234",
+    "iata_code": "14X",
+    "aircraft_name": "British Aerospace BAe 146-100QT/QC",
+    "plane_type_id": "7"
+  },
+  {
+    "id": "22235",
+    "iata_code": "14Y",
+    "aircraft_name": "British Aerospace BAe 146-200QT/QC",
+    "plane_type_id": "8"
+  },
+  {
+    "id": "22236",
+    "iata_code": "14Z",
+    "aircraft_name": "British Aerospace BAe 146-300QT/QC",
+    "plane_type_id": "9"
+  },
+  {
+    "id": "22237",
+    "iata_code": "310",
+    "aircraft_name": "Airbus Industrie A310",
+    "plane_type_id": "10"
+  },
+  {
+    "id": "22238",
+    "iata_code": "312",
+    "aircraft_name": "Airbus Industrie A310-200",
+    "plane_type_id": "11"
+  },
+  {
+    "id": "22239",
+    "iata_code": "313",
+    "aircraft_name": "Airbus Industrie A310-300",
+    "plane_type_id": "12"
+  },
+  {
+    "id": "22240",
+    "iata_code": "318",
+    "aircraft_name": "Airbus Industrie A318",
+    "plane_type_id": "13"
+  },
+  {
+    "id": "22241",
+    "iata_code": "319",
+    "aircraft_name": "Airbus Industrie A319",
+    "plane_type_id": "14"
+  },
+  {
+    "id": "22242",
+    "iata_code": "31F",
+    "aircraft_name": "Airbus Industrie A310 Freighter",
+    "plane_type_id": "15"
+  },
+  {
+    "id": "22243",
+    "iata_code": "31X",
+    "aircraft_name": "Airbus Industrie A310-200 Freighter",
+    "plane_type_id": "16"
+  },
+  {
+    "id": "22244",
+    "iata_code": "31Y",
+    "aircraft_name": "Airbus Industrie A310-300 Freighter",
+    "plane_type_id": "17"
+  },
+  {
+    "id": "22245",
+    "iata_code": "320",
+    "aircraft_name": "Airbus Industrie A320",
+    "plane_type_id": "18"
+  },
+  {
+    "id": "22246",
+    "iata_code": "321",
+    "aircraft_name": "Airbus Industrie A321",
+    "plane_type_id": "19"
+  },
+  {
+    "id": "22247",
+    "iata_code": "32S",
+    "aircraft_name": "Airbus Industrie A318/319/320/321",
+    "plane_type_id": "20"
+  },
+  {
+    "id": "22248",
+    "iata_code": "330",
+    "aircraft_name": "Airbus Industrie A330",
+    "plane_type_id": "21"
+  },
+  {
+    "id": "22249",
+    "iata_code": "332",
+    "aircraft_name": "Airbus Industrie A330-200",
+    "plane_type_id": "22"
+  },
+  {
+    "id": "22250",
+    "iata_code": "333",
+    "aircraft_name": "Airbus Industrie A330-300",
+    "plane_type_id": "23"
+  },
+  {
+    "id": "22251",
+    "iata_code": "340",
+    "aircraft_name": "Airbus Industrie A340",
+    "plane_type_id": "24"
+  },
+  {
+    "id": "22252",
+    "iata_code": "342",
+    "aircraft_name": "Airbus Industrie A340-200",
+    "plane_type_id": "25"
+  },
+  {
+    "id": "22253",
+    "iata_code": "343",
+    "aircraft_name": "Airbus Industrie A340-300",
+    "plane_type_id": "26"
+  },
+  {
+    "id": "22254",
+    "iata_code": "345",
+    "aircraft_name": "Airbus Industrie A340-500",
+    "plane_type_id": "27"
+  },
+  {
+    "id": "22255",
+    "iata_code": "346",
+    "aircraft_name": "Airbus Industrie A340-600",
+    "plane_type_id": "28"
+  },
+  {
+    "id": "22256",
+    "iata_code": "380",
+    "aircraft_name": "Airbus Industrie A380",
+    "plane_type_id": "29"
+  },
+  {
+    "id": "22257",
+    "iata_code": "388",
+    "aircraft_name": "Airbus Industrie A380-800",
+    "plane_type_id": "30"
+  },
+  {
+    "id": "22258",
+    "iata_code": "38F",
+    "aircraft_name": "Airbus Industrie A380 Freighter",
+    "plane_type_id": "31"
+  },
+  {
+    "id": "22259",
+    "iata_code": "703",
+    "aircraft_name": "Boeing 707-300",
+    "plane_type_id": "32"
+  },
+  {
+    "id": "22260",
+    "iata_code": "707",
+    "aircraft_name": "Boeing 707/720",
+    "plane_type_id": "33"
+  },
+  {
+    "id": "22261",
+    "iata_code": "70F",
+    "aircraft_name": "Boeing 707-300 Freighter",
+    "plane_type_id": "34"
+  },
+  {
+    "id": "22262",
+    "iata_code": "70M",
+    "aircraft_name": "Boeing 707-300 Combi",
+    "plane_type_id": "35"
+  },
+  {
+    "id": "22263",
+    "iata_code": "717",
+    "aircraft_name": "Boeing 717-200",
+    "plane_type_id": "36"
+  },
+  {
+    "id": "22264",
+    "iata_code": "721",
+    "aircraft_name": "Boeing 727-100",
+    "plane_type_id": "37"
+  },
+  {
+    "id": "22265",
+    "iata_code": "722",
+    "aircraft_name": "Boeing 727-200",
+    "plane_type_id": "38"
+  },
+  {
+    "id": "22266",
+    "iata_code": "727",
+    "aircraft_name": "Boeing 727",
+    "plane_type_id": "39"
+  },
+  {
+    "id": "22267",
+    "iata_code": "72A",
+    "aircraft_name": "Boeing 727-200 Advanced",
+    "plane_type_id": "40"
+  },
+  {
+    "id": "22268",
+    "iata_code": "72B",
+    "aircraft_name": "Boeing 727-100 Combi",
+    "plane_type_id": "41"
+  },
+  {
+    "id": "22269",
+    "iata_code": "72C",
+    "aircraft_name": "Boeing 727-200 Combi",
+    "plane_type_id": "42"
+  },
+  {
+    "id": "22270",
+    "iata_code": "72F",
+    "aircraft_name": "Boeing 727 Freighter",
+    "plane_type_id": "43"
+  },
+  {
+    "id": "22271",
+    "iata_code": "72M",
+    "aircraft_name": "Boeing 727 Combi",
+    "plane_type_id": "44"
+  },
+  {
+    "id": "22272",
+    "iata_code": "72S",
+    "aircraft_name": "Boeing 727-200",
+    "plane_type_id": "45"
+  },
+  {
+    "id": "22273",
+    "iata_code": "72X",
+    "aircraft_name": "Boeing 727-100 Freighter",
+    "plane_type_id": "46"
+  },
+  {
+    "id": "22274",
+    "iata_code": "72Y",
+    "aircraft_name": "Boeing 727-200 Freighter",
+    "plane_type_id": "47"
+  },
+  {
+    "id": "22275",
+    "iata_code": "731",
+    "aircraft_name": "Boeing 737-100",
+    "plane_type_id": "48"
+  },
+  {
+    "id": "22276",
+    "iata_code": "732",
+    "aircraft_name": "Boeing 737-200",
+    "plane_type_id": "49"
+  },
+  {
+    "id": "22277",
+    "iata_code": "733",
+    "aircraft_name": "Boeing 737-300",
+    "plane_type_id": "50"
+  },
+  {
+    "id": "22278",
+    "iata_code": "734",
+    "aircraft_name": "Boeing 737-400",
+    "plane_type_id": "51"
+  },
+  {
+    "id": "22279",
+    "iata_code": "735",
+    "aircraft_name": "Boeing 737-500",
+    "plane_type_id": "52"
+  },
+  {
+    "id": "22280",
+    "iata_code": "736",
+    "aircraft_name": "Boeing 737-600",
+    "plane_type_id": "53"
+  },
+  {
+    "id": "22281",
+    "iata_code": "737",
+    "aircraft_name": "Boeing 737",
+    "plane_type_id": "54"
+  },
+  {
+    "id": "22282",
+    "iata_code": "738",
+    "aircraft_name": "Boeing 737-800",
+    "plane_type_id": "55"
+  },
+  {
+    "id": "22283",
+    "iata_code": "739",
+    "aircraft_name": "Boeing 737-900",
+    "plane_type_id": "56"
+  },
+  {
+    "id": "22284",
+    "iata_code": "73A",
+    "aircraft_name": "Boeing 737-200/200C Advanced",
+    "plane_type_id": "57"
+  },
+  {
+    "id": "22285",
+    "iata_code": "73C",
+    "aircraft_name": "Boeing 737-300",
+    "plane_type_id": "58"
+  },
+  {
+    "id": "22286",
+    "iata_code": "73E",
+    "aircraft_name": "Boeing 737-900ER",
+    "plane_type_id": "59"
+  },
+  {
+    "id": "22287",
+    "iata_code": "73F",
+    "aircraft_name": "Boeing 737 Freighter",
+    "plane_type_id": "60"
+  },
+  {
+    "id": "22288",
+    "iata_code": "73G",
+    "aircraft_name": "Boeing 737-700",
+    "plane_type_id": "61"
+  },
+  {
+    "id": "22289",
+    "iata_code": "73H",
+    "aircraft_name": "Boeing 737-800 With Winglets",
+    "plane_type_id": "62"
+  },
+  {
+    "id": "22290",
+    "iata_code": "73J",
+    "aircraft_name": "Boeing 737-900 With Winglets",
+    "plane_type_id": "63"
+  },
+  {
+    "id": "22291",
+    "iata_code": "73M",
+    "aircraft_name": "Boeing 737-200 Combi",
+    "plane_type_id": "64"
+  },
+  {
+    "id": "22292",
+    "iata_code": "73N",
+    "aircraft_name": "Boeing 737-300 Mixed Config",
+    "plane_type_id": "65"
+  },
+  {
+    "id": "22293",
+    "iata_code": "73P",
+    "aircraft_name": "Boeing 737-400 Freighter",
+    "plane_type_id": "66"
+  },
+  {
+    "id": "22294",
+    "iata_code": "73Q",
+    "aircraft_name": "Boeing 737-400 Mixed Config",
+    "plane_type_id": "67"
+  },
+  {
+    "id": "22295",
+    "iata_code": "73S",
+    "aircraft_name": "Boeing 737 Advanced",
+    "plane_type_id": "68"
+  },
+  {
+    "id": "22296",
+    "iata_code": "73W",
+    "aircraft_name": "Boeing 737-700 With Winglets",
+    "plane_type_id": "69"
+  },
+  {
+    "id": "22297",
+    "iata_code": "73X",
+    "aircraft_name": "Boeing 737-200 Freighter",
+    "plane_type_id": "70"
+  },
+  {
+    "id": "22298",
+    "iata_code": "73Y",
+    "aircraft_name": "Boeing 737-300 Freighter",
+    "plane_type_id": "71"
+  },
+  {
+    "id": "22299",
+    "iata_code": "741",
+    "aircraft_name": "Boeing 747-100",
+    "plane_type_id": "72"
+  },
+  {
+    "id": "22300",
+    "iata_code": "742",
+    "aircraft_name": "Boeing 747-200",
+    "plane_type_id": "73"
+  },
+  {
+    "id": "22301",
+    "iata_code": "743",
+    "aircraft_name": "Boeing 747-300 (including -100SUD and -200SUD)",
+    "plane_type_id": "74"
+  },
+  {
+    "id": "22302",
+    "iata_code": "744",
+    "aircraft_name": "Boeing 747-400",
+    "plane_type_id": "75"
+  },
+  {
+    "id": "22303",
+    "iata_code": "747",
+    "aircraft_name": "Boeing 747",
+    "plane_type_id": "76"
+  },
+  {
+    "id": "22304",
+    "iata_code": "74C",
+    "aircraft_name": "Boeing 747-200 Combi",
+    "plane_type_id": "77"
+  },
+  {
+    "id": "22305",
+    "iata_code": "74D",
+    "aircraft_name": "Boeing 747-300 Combi (including -200SUD)",
+    "plane_type_id": "78"
+  },
+  {
+    "id": "22306",
+    "iata_code": "74E",
+    "aircraft_name": "Boeing 747-400 Combi",
+    "plane_type_id": "79"
+  },
+  {
+    "id": "22307",
+    "iata_code": "74F",
+    "aircraft_name": "Boeing 747 Freighter",
+    "plane_type_id": "80"
+  },
+  {
+    "id": "22308",
+    "iata_code": "74J",
+    "aircraft_name": "Boeing 747-400 Domestic",
+    "plane_type_id": "81"
+  },
+  {
+    "id": "22309",
+    "iata_code": "74L",
+    "aircraft_name": "Boeing 747SP",
+    "plane_type_id": "82"
+  },
+  {
+    "id": "22310",
+    "iata_code": "74M",
+    "aircraft_name": "Boeing 747 Combi",
+    "plane_type_id": "83"
+  },
+  {
+    "id": "22311",
+    "iata_code": "74T",
+    "aircraft_name": "Boeing 747-100 Freighter",
+    "plane_type_id": "84"
+  },
+  {
+    "id": "22312",
+    "iata_code": "74U",
+    "aircraft_name": "Boeing 747-300 Freighter",
+    "plane_type_id": "85"
+  },
+  {
+    "id": "22313",
+    "iata_code": "74V",
+    "aircraft_name": "Boeing 747SR Freighter",
+    "plane_type_id": "86"
+  },
+  {
+    "id": "22314",
+    "iata_code": "74X",
+    "aircraft_name": "Boeing 747-200 Freighter",
+    "plane_type_id": "87"
+  },
+  {
+    "id": "22315",
+    "iata_code": "74Y",
+    "aircraft_name": "Boeing 747-400 Freighter",
+    "plane_type_id": "88"
+  },
+  {
+    "id": "22316",
+    "iata_code": "752",
+    "aircraft_name": "Boeing 757-200",
+    "plane_type_id": "89"
+  },
+  {
+    "id": "22317",
+    "iata_code": "753",
+    "aircraft_name": "Boeing 757-300",
+    "plane_type_id": "90"
+  },
+  {
+    "id": "22318",
+    "iata_code": "757",
+    "aircraft_name": "Boeing 757",
+    "plane_type_id": "91"
+  },
+  {
+    "id": "22319",
+    "iata_code": "75F",
+    "aircraft_name": "Boeing 757-200 Freighter",
+    "plane_type_id": "92"
+  },
+  {
+    "id": "22320",
+    "iata_code": "75M",
+    "aircraft_name": "Boeing 757-200 Combi",
+    "plane_type_id": "93"
+  },
+  {
+    "id": "22321",
+    "iata_code": "75W",
+    "aircraft_name": "Boeing 757-200 With Winglets",
+    "plane_type_id": "94"
+  },
+  {
+    "id": "22322",
+    "iata_code": "762",
+    "aircraft_name": "Boeing 767-200",
+    "plane_type_id": "95"
+  },
+  {
+    "id": "22323",
+    "iata_code": "763",
+    "aircraft_name": "Boeing 767-300",
+    "plane_type_id": "96"
+  },
+  {
+    "id": "22324",
+    "iata_code": "764",
+    "aircraft_name": "Boeing 767-400",
+    "plane_type_id": "97"
+  },
+  {
+    "id": "22325",
+    "iata_code": "767",
+    "aircraft_name": "Boeing 767",
+    "plane_type_id": "98"
+  },
+  {
+    "id": "22326",
+    "iata_code": "76F",
+    "aircraft_name": "Boeing 767 Freighter",
+    "plane_type_id": "99"
+  },
+  {
+    "id": "22327",
+    "iata_code": "76X",
+    "aircraft_name": "Boeing 767-200 Freighter",
+    "plane_type_id": "100"
+  },
+  {
+    "id": "22328",
+    "iata_code": "76Y",
+    "aircraft_name": "Boeing 767-300 Freighter",
+    "plane_type_id": "101"
+  },
+  {
+    "id": "22329",
+    "iata_code": "772",
+    "aircraft_name": "Boeing 777-200/200ER",
+    "plane_type_id": "102"
+  },
+  {
+    "id": "22330",
+    "iata_code": "773",
+    "aircraft_name": "Boeing 777-300",
+    "plane_type_id": "103"
+  },
+  {
+    "id": "22331",
+    "iata_code": "777",
+    "aircraft_name": "Boeing 777",
+    "plane_type_id": "104"
+  },
+  {
+    "id": "22332",
+    "iata_code": "77L",
+    "aircraft_name": "Boeing 777-200LR",
+    "plane_type_id": "105"
+  },
+  {
+    "id": "22333",
+    "iata_code": "77W",
+    "aircraft_name": "Boeing 777-300ER",
+    "plane_type_id": "106"
+  },
+  {
+    "id": "22334",
+    "iata_code": "A26",
+    "aircraft_name": "Antonov An-26",
+    "plane_type_id": "107"
+  },
+  {
+    "id": "22335",
+    "iata_code": "A28",
+    "aircraft_name": "Antonov An-28",
+    "plane_type_id": "108"
+  },
+  {
+    "id": "22336",
+    "iata_code": "A30",
+    "aircraft_name": "Antonov An-30",
+    "plane_type_id": "109"
+  },
+  {
+    "id": "22337",
+    "iata_code": "A32",
+    "aircraft_name": "Antonov An-32",
+    "plane_type_id": "110"
+  },
+  {
+    "id": "22338",
+    "iata_code": "A40",
+    "aircraft_name": "Antonov An-140",
+    "plane_type_id": "111"
+  },
+  {
+    "id": "22339",
+    "iata_code": "A4F",
+    "aircraft_name": "Antonov An-124 Ruslan",
+    "plane_type_id": "112"
+  },
+  {
+    "id": "22340",
+    "iata_code": "A81",
+    "aircraft_name": "Antonov An-148-100",
+    "plane_type_id": "113"
+  },
+  {
+    "id": "22341",
+    "iata_code": "AB3",
+    "aircraft_name": "Airbus Industrie A300",
+    "plane_type_id": "114"
+  },
+  {
+    "id": "22342",
+    "iata_code": "AB4",
+    "aircraft_name": "Airbus Industrie A300B2/B4/C4",
+    "plane_type_id": "115"
+  },
+  {
+    "id": "22343",
+    "iata_code": "AB6",
+    "aircraft_name": "Airbus Industrie A300-600",
+    "plane_type_id": "116"
+  },
+  {
+    "id": "22344",
+    "iata_code": "ABB",
+    "aircraft_name": "Airbus Industrie A300-600ST Beluga",
+    "plane_type_id": "117"
+  },
+  {
+    "id": "22345",
+    "iata_code": "ABF",
+    "aircraft_name": "Airbus Industrie A300 Freighter",
+    "plane_type_id": "118"
+  },
+  {
+    "id": "22346",
+    "iata_code": "ABX",
+    "aircraft_name": "Airbus Industrie A300B4/C4/F4 Freighter",
+    "plane_type_id": "119"
+  },
+  {
+    "id": "22347",
+    "iata_code": "ABY",
+    "aircraft_name": "Airbus Industrie A300-600 Freighter",
+    "plane_type_id": "120"
+  },
+  {
+    "id": "22348",
+    "iata_code": "ACD",
+    "aircraft_name": "Twin Aero Commander/Turbo/Jetprop",
+    "plane_type_id": "121"
+  },
+  {
+    "id": "22349",
+    "iata_code": "AGH",
+    "aircraft_name": "Agusta A109",
+    "plane_type_id": "122"
+  },
+  {
+    "id": "22350",
+    "iata_code": "AN4",
+    "aircraft_name": "Antonov An-24",
+    "plane_type_id": "123"
+  },
+  {
+    "id": "22351",
+    "iata_code": "AN6",
+    "aircraft_name": "Antonov An-26/30/32",
+    "plane_type_id": "124"
+  },
+  {
+    "id": "22352",
+    "iata_code": "AN7",
+    "aircraft_name": "Antonov An-72/74",
+    "plane_type_id": "125"
+  },
+  {
+    "id": "22353",
+    "iata_code": "ANF",
+    "aircraft_name": "Antonov An-12",
+    "plane_type_id": "126"
+  },
+  {
+    "id": "22354",
+    "iata_code": "AR1",
+    "aircraft_name": "Avro RJ100 Avroliner",
+    "plane_type_id": "127"
+  },
+  {
+    "id": "22355",
+    "iata_code": "AR7",
+    "aircraft_name": "Avro RJ70 Avroliner",
+    "plane_type_id": "128"
+  },
+  {
+    "id": "22356",
+    "iata_code": "AR8",
+    "aircraft_name": "Avro RJ85 Avroliner",
+    "plane_type_id": "129"
+  },
+  {
+    "id": "22357",
+    "iata_code": "ARJ",
+    "aircraft_name": "Avro RJ Avroliner",
+    "plane_type_id": "130"
+  },
+  {
+    "id": "22358",
+    "iata_code": "ARX",
+    "aircraft_name": "Avro RJX",
+    "plane_type_id": "131"
+  },
+  {
+    "id": "22359",
+    "iata_code": "AT4",
+    "aircraft_name": "Aerospatiale/Alenia ATR 42-300/320",
+    "plane_type_id": "132"
+  },
+  {
+    "id": "22360",
+    "iata_code": "AT5",
+    "aircraft_name": "Aerospatiale/Alenia ATR 42-500",
+    "plane_type_id": "133"
+  },
+  {
+    "id": "22361",
+    "iata_code": "AT7",
+    "aircraft_name": "Aerospatiale/Alenia ATR 72",
+    "plane_type_id": "134"
+  },
+  {
+    "id": "22362",
+    "iata_code": "ATP",
+    "aircraft_name": "British Aerospace ATP",
+    "plane_type_id": "135"
+  },
+  {
+    "id": "22363",
+    "iata_code": "ATR",
+    "aircraft_name": "Aerospatiale/Alenia ATR",
+    "plane_type_id": "136"
+  },
+  {
+    "id": "22364",
+    "iata_code": "AX1",
+    "aircraft_name": "Avro RJX100",
+    "plane_type_id": "137"
+  },
+  {
+    "id": "22365",
+    "iata_code": "AX8",
+    "aircraft_name": "Avro RJX85",
+    "plane_type_id": "138"
+  },
+  {
+    "id": "22366",
+    "iata_code": "B11",
+    "aircraft_name": "British Aerospace BAC One Eleven",
+    "plane_type_id": "139"
+  },
+  {
+    "id": "22367",
+    "iata_code": "B12",
+    "aircraft_name": "British Aerospace BAC One Eleven 200",
+    "plane_type_id": "140"
+  },
+  {
+    "id": "22368",
+    "iata_code": "B13",
+    "aircraft_name": "British Aerospace BAC One Eleven 300",
+    "plane_type_id": "141"
+  },
+  {
+    "id": "22369",
+    "iata_code": "B14",
+    "aircraft_name": "British Aerospace BAC One Eleven 400",
+    "plane_type_id": "142"
+  },
+  {
+    "id": "22370",
+    "iata_code": "B15",
+    "aircraft_name": "British Aerospace BAC One Eleven 500",
+    "plane_type_id": "143"
+  },
+  {
+    "id": "22371",
+    "iata_code": "B72",
+    "aircraft_name": "Boeing 720B",
+    "plane_type_id": "144"
+  },
+  {
+    "id": "22372",
+    "iata_code": "BE1",
+    "aircraft_name": "Beechcraft Beech 1900",
+    "plane_type_id": "145"
+  },
+  {
+    "id": "22373",
+    "iata_code": "BE2",
+    "aircraft_name": "Beechcraft twin piston",
+    "plane_type_id": "146"
+  },
+  {
+    "id": "22374",
+    "iata_code": "BE9",
+    "aircraft_name": "Beechcraft Airliner 99",
+    "plane_type_id": "147"
+  },
+  {
+    "id": "22375",
+    "iata_code": "BEC",
+    "aircraft_name": "Beechcraft Light Aircraft",
+    "plane_type_id": "148"
+  },
+  {
+    "id": "22376",
+    "iata_code": "BEH",
+    "aircraft_name": "Beechcraft Beech 1900D",
+    "plane_type_id": "149"
+  },
+  {
+    "id": "22377",
+    "iata_code": "BES",
+    "aircraft_name": "Beechcraft Beech 1900C",
+    "plane_type_id": "150"
+  },
+  {
+    "id": "22378",
+    "iata_code": "BET",
+    "aircraft_name": "Beechcraft Light Aircraft Twin Prop",
+    "plane_type_id": "151"
+  },
+  {
+    "id": "22379",
+    "iata_code": "BH2",
+    "aircraft_name": "Bell Helicopters",
+    "plane_type_id": "152"
+  },
+  {
+    "id": "22380",
+    "iata_code": "BNI",
+    "aircraft_name": "Pilatus Britten-Norman BN-2A/B",
+    "plane_type_id": "153"
+  },
+  {
+    "id": "22381",
+    "iata_code": "BNT",
+    "aircraft_name": "Pilatus Britten-Norman BN-2A Trislander",
+    "plane_type_id": "154"
+  },
+  {
+    "id": "22382",
+    "iata_code": "BUS",
+    "aircraft_name": "Non Aircraft - Bus",
+    "plane_type_id": "155"
+  },
+  {
+    "id": "22383",
+    "iata_code": "CCJ",
+    "aircraft_name": "Canadair Challenger",
+    "plane_type_id": "156"
+  },
+  {
+    "id": "22384",
+    "iata_code": "CD2",
+    "aircraft_name": "Government Aircraft Factories N22B/N24A Nomad",
+    "plane_type_id": "157"
+  },
+  {
+    "id": "22385",
+    "iata_code": "CN1",
+    "aircraft_name": "Cessna light aircraft - single piston engine",
+    "plane_type_id": "158"
+  },
+  {
+    "id": "22386",
+    "iata_code": "CNA",
+    "aircraft_name": "Cessna Light Aircraft",
+    "plane_type_id": "159"
+  },
+  {
+    "id": "22387",
+    "iata_code": "CNC",
+    "aircraft_name": "Cessna light aircraft - single turboprop engine",
+    "plane_type_id": "160"
+  },
+  {
+    "id": "22388",
+    "iata_code": "CNJ",
+    "aircraft_name": "Cessna Citation",
+    "plane_type_id": "161"
+  },
+  {
+    "id": "22389",
+    "iata_code": "CNT",
+    "aircraft_name": "Cessna light aircraft - twin turboprop engines",
+    "plane_type_id": "162"
+  },
+  {
+    "id": "22390",
+    "iata_code": "CR1",
+    "aircraft_name": "Canadair Regional Jet 100",
+    "plane_type_id": "163"
+  },
+  {
+    "id": "22391",
+    "iata_code": "CR2",
+    "aircraft_name": "Canadair Regional Jet 200",
+    "plane_type_id": "164"
+  },
+  {
+    "id": "22392",
+    "iata_code": "CR7",
+    "aircraft_name": "Canadair Regional Jet 700",
+    "plane_type_id": "165"
+  },
+  {
+    "id": "22393",
+    "iata_code": "CR9",
+    "aircraft_name": "Canadair Regional Jet 900",
+    "plane_type_id": "166"
+  },
+  {
+    "id": "22394",
+    "iata_code": "CRA",
+    "aircraft_name": "Canadair Regional Jet 705",
+    "plane_type_id": "167"
+  },
+  {
+    "id": "22395",
+    "iata_code": "CRJ",
+    "aircraft_name": "Canadair Regional Jet",
+    "plane_type_id": "168"
+  },
+  {
+    "id": "22396",
+    "iata_code": "CRV",
+    "aircraft_name": "Aerospatiale/SUD SE210 Caravelle",
+    "plane_type_id": "169"
+  },
+  {
+    "id": "22397",
+    "iata_code": "CS2",
+    "aircraft_name": "CASA/IPTN CN-212 Aviocar",
+    "plane_type_id": "170"
+  },
+  {
+    "id": "22398",
+    "iata_code": "CS5",
+    "aircraft_name": "CASA/IPTN CN-235",
+    "plane_type_id": "171"
+  },
+  {
+    "id": "22399",
+    "iata_code": "CV5",
+    "aircraft_name": "Convair 580",
+    "plane_type_id": "172"
+  },
+  {
+    "id": "22400",
+    "iata_code": "CVF",
+    "aircraft_name": "Convair 580/600/640 Freighter",
+    "plane_type_id": "173"
+  },
+  {
+    "id": "22401",
+    "iata_code": "CVR",
+    "aircraft_name": "Convair 240/440/580",
+    "plane_type_id": "174"
+  },
+  {
+    "id": "22402",
+    "iata_code": "CWC",
+    "aircraft_name": "Curtiss C-46 Commando",
+    "plane_type_id": "175"
+  },
+  {
+    "id": "22403",
+    "iata_code": "D10",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-10",
+    "plane_type_id": "176"
+  },
+  {
+    "id": "22404",
+    "iata_code": "D11",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-10-10/15",
+    "plane_type_id": "177"
+  },
+  {
+    "id": "22405",
+    "iata_code": "D1C",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-10-30/40",
+    "plane_type_id": "178"
+  },
+  {
+    "id": "22406",
+    "iata_code": "D1F",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-10 Freighter",
+    "plane_type_id": "179"
+  },
+  {
+    "id": "22407",
+    "iata_code": "D1X",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-10-10 Freighter",
+    "plane_type_id": "180"
+  },
+  {
+    "id": "22408",
+    "iata_code": "D1Y",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-10-30/40 Freighter",
+    "plane_type_id": "181"
+  },
+  {
+    "id": "22409",
+    "iata_code": "D28",
+    "aircraft_name": "Fairchild Dornier Do-228",
+    "plane_type_id": "182"
+  },
+  {
+    "id": "22410",
+    "iata_code": "D38",
+    "aircraft_name": "Fairchild Dornier Do-328",
+    "plane_type_id": "183"
+  },
+  {
+    "id": "22411",
+    "iata_code": "D3F",
+    "aircraft_name": "Boeing/Douglas DC-3 Freighter",
+    "plane_type_id": "184"
+  },
+  {
+    "id": "22412",
+    "iata_code": "D6F",
+    "aircraft_name": "Boeing/Douglas DC-6A/B/C Freighter",
+    "plane_type_id": "185"
+  },
+  {
+    "id": "22413",
+    "iata_code": "D8F",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-8 Freighter",
+    "plane_type_id": "186"
+  },
+  {
+    "id": "22414",
+    "iata_code": "D8L",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-8-62",
+    "plane_type_id": "187"
+  },
+  {
+    "id": "22415",
+    "iata_code": "D8M",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-8 Combi",
+    "plane_type_id": "188"
+  },
+  {
+    "id": "22416",
+    "iata_code": "D8Q",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-8-72",
+    "plane_type_id": "189"
+  },
+  {
+    "id": "22417",
+    "iata_code": "D8T",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-8-50 Freighter",
+    "plane_type_id": "190"
+  },
+  {
+    "id": "22418",
+    "iata_code": "D8X",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-8-61/62/63 Freighter",
+    "plane_type_id": "191"
+  },
+  {
+    "id": "22419",
+    "iata_code": "D8Y",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-8-71/72/73 Freighter",
+    "plane_type_id": "192"
+  },
+  {
+    "id": "22420",
+    "iata_code": "D91",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-9-10",
+    "plane_type_id": "193"
+  },
+  {
+    "id": "22421",
+    "iata_code": "D92",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-9-20",
+    "plane_type_id": "194"
+  },
+  {
+    "id": "22422",
+    "iata_code": "D93",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-9-30",
+    "plane_type_id": "195"
+  },
+  {
+    "id": "22423",
+    "iata_code": "D94",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-9-40",
+    "plane_type_id": "196"
+  },
+  {
+    "id": "22424",
+    "iata_code": "D95",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-9-50",
+    "plane_type_id": "197"
+  },
+  {
+    "id": "22425",
+    "iata_code": "D9C",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-9-30 Freighter",
+    "plane_type_id": "198"
+  },
+  {
+    "id": "22426",
+    "iata_code": "D9F",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-9-40 Freighter",
+    "plane_type_id": "199"
+  },
+  {
+    "id": "22427",
+    "iata_code": "D9S",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-9-30/40/50",
+    "plane_type_id": "200"
+  },
+  {
+    "id": "22428",
+    "iata_code": "D9X",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-9-10 Freighter",
+    "plane_type_id": "201"
+  },
+  {
+    "id": "22429",
+    "iata_code": "DC3",
+    "aircraft_name": "Boeing/Douglas DC-3",
+    "plane_type_id": "202"
+  },
+  {
+    "id": "22430",
+    "iata_code": "DC6",
+    "aircraft_name": "Boeing/Douglas DC-6",
+    "plane_type_id": "203"
+  },
+  {
+    "id": "22431",
+    "iata_code": "DC8",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-8",
+    "plane_type_id": "204"
+  },
+  {
+    "id": "22432",
+    "iata_code": "DC9",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-9",
+    "plane_type_id": "205"
+  },
+  {
+    "id": "22433",
+    "iata_code": "DCF",
+    "aircraft_name": "Boeing/McDonnell Douglas DC-9 Freighter",
+    "plane_type_id": "206"
+  },
+  {
+    "id": "22434",
+    "iata_code": "DH1",
+    "aircraft_name": "De Havilland Canada DHC-8-100 Dash 8/8Q",
+    "plane_type_id": "207"
+  },
+  {
+    "id": "22435",
+    "iata_code": "DH2",
+    "aircraft_name": "De Havilland Canada DHC-8-200 Dash 8/8Q",
+    "plane_type_id": "208"
+  },
+  {
+    "id": "22436",
+    "iata_code": "DH3",
+    "aircraft_name": "De Havilland Canada DHC-8-300 Dash 8/8Q",
+    "plane_type_id": "209"
+  },
+  {
+    "id": "22437",
+    "iata_code": "DH4",
+    "aircraft_name": "De Havilland Canada DHC-8-400 Dash 8/8Q",
+    "plane_type_id": "210"
+  },
+  {
+    "id": "22438",
+    "iata_code": "DH7",
+    "aircraft_name": "De Havilland Canada DHC-7 Dash 7",
+    "plane_type_id": "211"
+  },
+  {
+    "id": "22439",
+    "iata_code": "DH8",
+    "aircraft_name": "De Havilland Canada DHC-8 Dash 8 All S.",
+    "plane_type_id": "212"
+  },
+  {
+    "id": "22440",
+    "iata_code": "DHC",
+    "aircraft_name": "De Havilland Canada DHC-4 Caribou",
+    "plane_type_id": "213"
+  },
+  {
+    "id": "22441",
+    "iata_code": "DHL",
+    "aircraft_name": "De Havilland Canada DHC-3 Turbo Otter",
+    "plane_type_id": "214"
+  },
+  {
+    "id": "22442",
+    "iata_code": "DHP",
+    "aircraft_name": "De Havilland Canada DHC-2 Beaver",
+    "plane_type_id": "215"
+  },
+  {
+    "id": "22443",
+    "iata_code": "DHS",
+    "aircraft_name": "De Havilland Canada DHC-3 Otter",
+    "plane_type_id": "216"
+  },
+  {
+    "id": "22444",
+    "iata_code": "DHT",
+    "aircraft_name": "De Havilland Canada DHC-6 Twin Otter",
+    "plane_type_id": "217"
+  },
+  {
+    "id": "22445",
+    "iata_code": "E70",
+    "aircraft_name": "Embraer ERJ-170",
+    "plane_type_id": "218"
+  },
+  {
+    "id": "22446",
+    "iata_code": "E75",
+    "aircraft_name": "Embraer ERJ-175",
+    "plane_type_id": "219"
+  },
+  {
+    "id": "22447",
+    "iata_code": "E90",
+    "aircraft_name": "Embraer ERJ-190",
+    "plane_type_id": "220"
+  },
+  {
+    "id": "22448",
+    "iata_code": "E95",
+    "aircraft_name": "Embraer ERJ-195",
+    "plane_type_id": "221"
+  },
+  {
+    "id": "22449",
+    "iata_code": "EM2",
+    "aircraft_name": "Embraer EMB-120 Brasilia",
+    "plane_type_id": "222"
+  },
+  {
+    "id": "22450",
+    "iata_code": "EM9",
+    "aircraft_name": "Embraer E190",
+    "plane_type_id": "223"
+  },
+  {
+    "id": "22451",
+    "iata_code": "EMB",
+    "aircraft_name": "Embraer EMB-110 Bandeirante",
+    "plane_type_id": "224"
+  },
+  {
+    "id": "22452",
+    "iata_code": "EMJ",
+    "aircraft_name": "Embraer ERJ-170/190",
+    "plane_type_id": "225"
+  },
+  {
+    "id": "22453",
+    "iata_code": "ER3",
+    "aircraft_name": "Embraer ERJ-135 Regional Jet",
+    "plane_type_id": "226"
+  },
+  {
+    "id": "22454",
+    "iata_code": "ER4",
+    "aircraft_name": "Embraer ERJ-145 Regional Jet",
+    "plane_type_id": "227"
+  },
+  {
+    "id": "22455",
+    "iata_code": "ERD",
+    "aircraft_name": "Embraer ERJ-140 Regional Jet",
+    "plane_type_id": "228"
+  },
+  {
+    "id": "22456",
+    "iata_code": "ERJ",
+    "aircraft_name": "Embraer ERJ-135/140/145 Regional Jet",
+    "plane_type_id": "229"
+  },
+  {
+    "id": "22457",
+    "iata_code": "F21",
+    "aircraft_name": "Fokker F28 Fellowship 1000",
+    "plane_type_id": "230"
+  },
+  {
+    "id": "22458",
+    "iata_code": "F22",
+    "aircraft_name": "Fokker F28 Fellowship 2000",
+    "plane_type_id": "231"
+  },
+  {
+    "id": "22459",
+    "iata_code": "F23",
+    "aircraft_name": "Fokker F28 Fellowship 3000",
+    "plane_type_id": "232"
+  },
+  {
+    "id": "22460",
+    "iata_code": "F24",
+    "aircraft_name": "Fokker F28 Fellowship 4000",
+    "plane_type_id": "233"
+  },
+  {
+    "id": "22461",
+    "iata_code": "F27",
+    "aircraft_name": "Fokker F27 Friendship/Fairchild F27",
+    "plane_type_id": "234"
+  },
+  {
+    "id": "22462",
+    "iata_code": "F28",
+    "aircraft_name": "Fokker F28 Fellowship",
+    "plane_type_id": "235"
+  },
+  {
+    "id": "22463",
+    "iata_code": "F50",
+    "aircraft_name": "Fokker 50",
+    "plane_type_id": "236"
+  },
+  {
+    "id": "22464",
+    "iata_code": "F70",
+    "aircraft_name": "Fokker 70",
+    "plane_type_id": "237"
+  },
+  {
+    "id": "22465",
+    "iata_code": "FA7",
+    "aircraft_name": "Fairchild Dornier 728JET",
+    "plane_type_id": "238"
+  },
+  {
+    "id": "22466",
+    "iata_code": "FK7",
+    "aircraft_name": "Fairchild FH227",
+    "plane_type_id": "239"
+  },
+  {
+    "id": "22467",
+    "iata_code": "FRJ",
+    "aircraft_name": "Fairchild Dornier 328JET",
+    "plane_type_id": "240"
+  },
+  {
+    "id": "22468",
+    "iata_code": "GRG",
+    "aircraft_name": "Grumman G-21 Goose",
+    "plane_type_id": "241"
+  },
+  {
+    "id": "22469",
+    "iata_code": "GRM",
+    "aircraft_name": "Grumman G-73 Turbo Mallard",
+    "plane_type_id": "242"
+  },
+  {
+    "id": "22470",
+    "iata_code": "HEC",
+    "aircraft_name": "Helio H-250 Courier/H-295/395 Super Courier",
+    "plane_type_id": "243"
+  },
+  {
+    "id": "22471",
+    "iata_code": "HS7",
+    "aircraft_name": "British Aerospace/Hawker Siddeley HS748",
+    "plane_type_id": "244"
+  },
+  {
+    "id": "22472",
+    "iata_code": "I14",
+    "aircraft_name": "Ilyushin IL-114",
+    "plane_type_id": "245"
+  },
+  {
+    "id": "22473",
+    "iata_code": "I93",
+    "aircraft_name": "Ilyushin IL-96-300",
+    "plane_type_id": "246"
+  },
+  {
+    "id": "22474",
+    "iata_code": "I9F",
+    "aircraft_name": "Ilyushin IL-96 Freighter",
+    "plane_type_id": "247"
+  },
+  {
+    "id": "22475",
+    "iata_code": "I9M",
+    "aircraft_name": "Ilyushin IL-96M",
+    "plane_type_id": "248"
+  },
+  {
+    "id": "22476",
+    "iata_code": "I9Y",
+    "aircraft_name": "Ilyushin IL-96T",
+    "plane_type_id": "249"
+  },
+  {
+    "id": "22477",
+    "iata_code": "IL6",
+    "aircraft_name": "Ilyushin IL-62",
+    "plane_type_id": "250"
+  },
+  {
+    "id": "22478",
+    "iata_code": "IL7",
+    "aircraft_name": "Ilyushin IL-76",
+    "plane_type_id": "251"
+  },
+  {
+    "id": "22479",
+    "iata_code": "IL8",
+    "aircraft_name": "Ilyushin IL-18",
+    "plane_type_id": "252"
+  },
+  {
+    "id": "22480",
+    "iata_code": "IL9",
+    "aircraft_name": "Ilyushin IL-96",
+    "plane_type_id": "253"
+  },
+  {
+    "id": "22481",
+    "iata_code": "ILW",
+    "aircraft_name": "Ilyushin IL-86",
+    "plane_type_id": "254"
+  },
+  {
+    "id": "22482",
+    "iata_code": "J31",
+    "aircraft_name": "British Aerospace Jetstream 31",
+    "plane_type_id": "255"
+  },
+  {
+    "id": "22483",
+    "iata_code": "J32",
+    "aircraft_name": "British Aerospace Jetstream 32",
+    "plane_type_id": "256"
+  },
+  {
+    "id": "22484",
+    "iata_code": "J41",
+    "aircraft_name": "British Aerospace Jetstream 41",
+    "plane_type_id": "257"
+  },
+  {
+    "id": "22485",
+    "iata_code": "JST",
+    "aircraft_name": "British Aerospace Jetstream 31/32/41",
+    "plane_type_id": "258"
+  },
+  {
+    "id": "22486",
+    "iata_code": "JU5",
+    "aircraft_name": "Junkers Ju52",
+    "plane_type_id": "259"
+  },
+  {
+    "id": "22487",
+    "iata_code": "L10",
+    "aircraft_name": "Lockheed L-1011 Tristar",
+    "plane_type_id": "260"
+  },
+  {
+    "id": "22488",
+    "iata_code": "L11",
+    "aircraft_name": "Lockheed L-1011-1/50/100/150/200/250",
+    "plane_type_id": "261"
+  },
+  {
+    "id": "22489",
+    "iata_code": "L15",
+    "aircraft_name": "Lockheed L-1011-500 Tristar",
+    "plane_type_id": "262"
+  },
+  {
+    "id": "22490",
+    "iata_code": "L1F",
+    "aircraft_name": "Lockheed L-1011 Tristar Freighter",
+    "plane_type_id": "263"
+  },
+  {
+    "id": "22491",
+    "iata_code": "L4T",
+    "aircraft_name": "Let 410 Turbolet",
+    "plane_type_id": "264"
+  },
+  {
+    "id": "22492",
+    "iata_code": "LCH",
+    "aircraft_name": "Non Aircraft - Launch/Boat",
+    "plane_type_id": "265"
+  },
+  {
+    "id": "22493",
+    "iata_code": "LMO",
+    "aircraft_name": "Non Aircraft - Limousine",
+    "plane_type_id": "266"
+  },
+  {
+    "id": "22494",
+    "iata_code": "LOE",
+    "aircraft_name": "Lockheed L-188 Electra",
+    "plane_type_id": "267"
+  },
+  {
+    "id": "22495",
+    "iata_code": "LOH",
+    "aircraft_name": "Lockheed L-100 Hercules",
+    "plane_type_id": "268"
+  },
+  {
+    "id": "22496",
+    "iata_code": "LRJ",
+    "aircraft_name": "Learjet",
+    "plane_type_id": "269"
+  },
+  {
+    "id": "22497",
+    "iata_code": "M11",
+    "aircraft_name": "Boeing/McDonnell Douglas MD-11",
+    "plane_type_id": "270"
+  },
+  {
+    "id": "22498",
+    "iata_code": "M1F",
+    "aircraft_name": "Boeing/McDonnell Douglas MD-11 Freighter",
+    "plane_type_id": "271"
+  },
+  {
+    "id": "22499",
+    "iata_code": "M1M",
+    "aircraft_name": "Boeing/McDonnell Douglas MD-11 Combi",
+    "plane_type_id": "272"
+  },
+  {
+    "id": "22500",
+    "iata_code": "M80",
+    "aircraft_name": "Boeing/McDonnell Douglas MD-80",
+    "plane_type_id": "273"
+  },
+  {
+    "id": "22501",
+    "iata_code": "M81",
+    "aircraft_name": "Boeing/McDonnell Douglas MD-81",
+    "plane_type_id": "274"
+  },
+  {
+    "id": "22502",
+    "iata_code": "M82",
+    "aircraft_name": "Boeing/McDonnell Douglas MD-82",
+    "plane_type_id": "275"
+  },
+  {
+    "id": "22503",
+    "iata_code": "M83",
+    "aircraft_name": "Boeing/McDonnell Douglas MD-83",
+    "plane_type_id": "276"
+  },
+  {
+    "id": "22504",
+    "iata_code": "M87",
+    "aircraft_name": "Boeing/McDonnell Douglas MD-87",
+    "plane_type_id": "277"
+  },
+  {
+    "id": "22505",
+    "iata_code": "M88",
+    "aircraft_name": "Boeing/McDonnell Douglas MD-88",
+    "plane_type_id": "278"
+  },
+  {
+    "id": "22506",
+    "iata_code": "M90",
+    "aircraft_name": "Boeing/McDonnell Douglas MD-90",
+    "plane_type_id": "279"
+  },
+  {
+    "id": "22507",
+    "iata_code": "MIH",
+    "aircraft_name": "Mil",
+    "plane_type_id": "280"
+  },
+  {
+    "id": "22508",
+    "iata_code": "MU2",
+    "aircraft_name": "Mitsubishi MU-2",
+    "plane_type_id": "281"
+  },
+  {
+    "id": "22509",
+    "iata_code": "ND2",
+    "aircraft_name": "Aerospatiale/Nord 262",
+    "plane_type_id": "282"
+  },
+  {
+    "id": "22510",
+    "iata_code": "NDC",
+    "aircraft_name": "Aerospatiale SN601 Corvette",
+    "plane_type_id": "283"
+  },
+  {
+    "id": "22511",
+    "iata_code": "NDE",
+    "aircraft_name": "Aerospatiale/Eurocopter Ecureuil AS350/AS355",
+    "plane_type_id": "284"
+  },
+  {
+    "id": "22512",
+    "iata_code": "PA1",
+    "aircraft_name": "Piper light aircraft - single piston engine",
+    "plane_type_id": "285"
+  },
+  {
+    "id": "22513",
+    "iata_code": "PA2",
+    "aircraft_name": "Piper light aircraft - twin piston engines",
+    "plane_type_id": "286"
+  },
+  {
+    "id": "22514",
+    "iata_code": "PAG",
+    "aircraft_name": "Piper Light Aircraft",
+    "plane_type_id": "287"
+  },
+  {
+    "id": "22515",
+    "iata_code": "PL2",
+    "aircraft_name": "Pilatus PC-12",
+    "plane_type_id": "288"
+  },
+  {
+    "id": "22516",
+    "iata_code": "PN6",
+    "aircraft_name": "Partenavia P68",
+    "plane_type_id": "289"
+  },
+  {
+    "id": "22517",
+    "iata_code": "S20",
+    "aircraft_name": "Saab 2000",
+    "plane_type_id": "290"
+  },
+  {
+    "id": "22518",
+    "iata_code": "S58",
+    "aircraft_name": "Sikorsky S-58T",
+    "plane_type_id": "291"
+  },
+  {
+    "id": "22519",
+    "iata_code": "S61",
+    "aircraft_name": "Sikorsky S-61",
+    "plane_type_id": "292"
+  },
+  {
+    "id": "22520",
+    "iata_code": "S76",
+    "aircraft_name": "Sikorsky S-76",
+    "plane_type_id": "293"
+  },
+  {
+    "id": "22521",
+    "iata_code": "SF3",
+    "aircraft_name": "Saab SF-340",
+    "plane_type_id": "294"
+  },
+  {
+    "id": "22522",
+    "iata_code": "SFB",
+    "aircraft_name": "Saab SF-340B",
+    "plane_type_id": "295"
+  },
+  {
+    "id": "22523",
+    "iata_code": "SH3",
+    "aircraft_name": "Shorts SD-330",
+    "plane_type_id": "296"
+  },
+  {
+    "id": "22524",
+    "iata_code": "SH6",
+    "aircraft_name": "Shorts SD-360",
+    "plane_type_id": "297"
+  },
+  {
+    "id": "22525",
+    "iata_code": "SSC",
+    "aircraft_name": "Aerospatiale/British Aerospace Concorde (discontinued)",
+    "plane_type_id": "298"
+  },
+  {
+    "id": "22526",
+    "iata_code": "SWM",
+    "aircraft_name": "Fairchild Metro/Merlin",
+    "plane_type_id": "299"
+  },
+  {
+    "id": "22527",
+    "iata_code": "T20",
+    "aircraft_name": "Tupolev Tu-204/214",
+    "plane_type_id": "300"
+  },
+  {
+    "id": "22528",
+    "iata_code": "TRN",
+    "aircraft_name": "Non Aircraft - Train",
+    "plane_type_id": "301"
+  },
+  {
+    "id": "22529",
+    "iata_code": "TU3",
+    "aircraft_name": "Tupolev Tu-134",
+    "plane_type_id": "302"
+  },
+  {
+    "id": "22530",
+    "iata_code": "TU5",
+    "aircraft_name": "Tupolev Tu-154",
+    "plane_type_id": "303"
+  },
+  {
+    "id": "22531",
+    "iata_code": "VCV",
+    "aircraft_name": "Vickers Viscount",
+    "plane_type_id": "304"
+  },
+  {
+    "id": "22532",
+    "iata_code": "WWP",
+    "aircraft_name": "Israel Aircraft Industries 1124 Westwind",
+    "plane_type_id": "305"
+  },
+  {
+    "id": "22533",
+    "iata_code": "YK2",
+    "aircraft_name": "Yakovlev Yak-42",
+    "plane_type_id": "306"
+  },
+  {
+    "id": "22534",
+    "iata_code": "YK4",
+    "aircraft_name": "Yakovlev Yak-40",
+    "plane_type_id": "307"
+  },
+  {
+    "id": "22535",
+    "iata_code": "YN2",
+    "aircraft_name": "Yunshuji Y-12/Xian Y-12",
+    "plane_type_id": "308"
+  },
+  {
+    "id": "22536",
+    "iata_code": "YN7",
+    "aircraft_name": "Yunshuji Y-7/Harbin Y-7",
+    "plane_type_id": "309"
+  },
+  {
+    "id": "22537",
+    "iata_code": "YS1",
+    "aircraft_name": "NAMC YS-11",
+    "plane_type_id": "310"
+  },
+  {
+    "id": "22538",
+    "iata_code": "350",
+    "aircraft_name": "Airbus A350-100",
+    "plane_type_id": "311"
+  },
+  {
+    "id": "22539",
+    "iata_code": "330",
+    "aircraft_name": "Airbus A330-200",
+    "plane_type_id": "312"
+  },
+  {
+    "id": "22540",
+    "iata_code": "787",
+    "aircraft_name": "Boeing B787-900",
+    "plane_type_id": "313"
+  }
+]

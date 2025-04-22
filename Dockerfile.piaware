@@ -25,4 +25,7 @@ RUN sed -i 's/^daemonize yes/daemonize no/' /etc/piaware.conf
 # Expose PiAware status port
 EXPOSE 30104
 
-CMD ["piaware", "-plainlog"]
+CMD ["piaware", "-plainlog", "-debug"]
+
+# check configs with
+# piaware-config -showall
