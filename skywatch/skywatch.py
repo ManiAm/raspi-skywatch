@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+
+# Author: Mani Amoozadeh
+# Email: mani.amoozadeh2@gmail.com
+# Description: SkyWatch application
 
 import sys
 import os
@@ -15,6 +20,7 @@ from gpsdclient import GPSDClient
 
 import models_sql
 from hexdb_api import HEXDB_REST_API_Client
+from plane_spotters_api import Plane_Spotters_REST_API_Client
 from discord_webhook import Discord_Webhook
 import get_aircraft_svg
 import utility
@@ -27,22 +33,19 @@ class SkyWatch():
 
     def __init__(self,
                  alert_radius_km=5,  # Alert if aircraft within this distance
+                 home_lat=None,
+                 home_lon=None,
                  gpsd_host="localhost",
                  gpsd_port=2947,
                  dump1090_host="localhost",
                  dump1090_port=30003,
                  csv_save=True,
-                 csv_path="aircraft_log.csv"):
+                 csv_path="aircraft_log.csv",
+                 monitor_interval=10):
 
         self.alert_radius_km = alert_radius_km
-        self.home_coords = ()
-        self.running = True
-
-        self.msg_queue = queue.Queue(maxsize=100)
-        self.msg_rate_produce = 0
-        self.msg_rate_consume = 0
-
-        self.icao_code_hex_missing = set()
+        self.home_lat = home_lat
+        self.home_lon = home_lon
 
         self.gpsd_host = gpsd_host
         self.gpsd_port = gpsd_port
@@ -52,8 +55,22 @@ class SkyWatch():
 
         self.csv_save = csv_save
         self.csv_path = csv_path
+
+        self.monitor_interval = monitor_interval
+
+        ########
+
+        self.running = True
+
         self.csv_file = None
         self.csv_writer = None
+
+        self.msg_queue = queue.Queue(maxsize=100)
+        self.msg_rate_produce = 0
+        self.msg_rate_consume = 0
+
+        self.icao_code_hex_missing = set()
+        self.max_observed_distance_km = 0
 
         self.sbs_field_names = [
             "message_type",
@@ -80,7 +97,15 @@ class SkyWatch():
             "is_on_ground"
         ]
 
-        self.home_lat, self.home_lon = self.get_coordinates()
+        ########
+
+        if not self.home_lat and not self.home_lon:
+            self.home_lat, self.home_lon = self.get_coordinates_gpsd()
+
+        if not self.home_lat or not self.home_lon:
+            log.error("Home coordinates are not set properly!")
+            sys.exit(2)
+
         log.info("Latitude: %s, Longitude: %s", self.home_lat, self.home_lon)
 
         if csv_save:
@@ -88,22 +113,13 @@ class SkyWatch():
 
         self.redis = redis.Redis(host="localhost", port=6379, db=0, decode_responses=True)
         self.postgresql_session = models_sql.Session(bind=models_sql.engine)
+
         self.hexdb = HEXDB_REST_API_Client(host="hexdb.io/api", api_ver="v1")
+        self.ps_h = Plane_Spotters_REST_API_Client(host="api.planespotters.net/pub")
+
         self.discord = Discord_Webhook(host="discord.com", base="api/webhooks")
 
     ###############################################################################
-
-    def get_coordinates(self):
-
-        if not self.home_coords:
-            return self.get_coordinates_gpsd()
-
-        if len(self.home_coords) != 2:
-            log.error("home coordinates are not set!")
-            sys.exit(2)
-
-        return self.home_coords
-
 
     def get_coordinates_gpsd(self):
 
@@ -149,16 +165,25 @@ class SkyWatch():
         self.running = False
 
 
-    def monitor_queue(self, interval=10):
+    def monitor_queue(self):
 
         while self.running:
 
-            time.sleep(interval)
+            time.sleep(self.monitor_interval)
 
-            log.info("[Monitor] Backlog Queue size: \033[94m%4d\033[0m  Receive Rate: \033[94m%7.2f\033[0m msg/sec  Process Rate: \033[94m%7.2f\033[0m msg/sec", self.msg_queue.qsize(), self.msg_rate_produce, self.msg_rate_consume)
+            log.info(
+                "[Monitor] Backlog Queue size: \033[94m%4d\033[0m  "
+                "Receive Rate: \033[94m%7.2f\033[0m msg/sec  "
+                "Process Rate: \033[94m%7.2f\033[0m msg/sec  "
+                "Max Observed Distance: \033[94m%7.2f\033[0m km",
+                self.msg_queue.qsize(),
+                self.msg_rate_produce,
+                self.msg_rate_consume,
+                self.max_observed_distance_km
+            )
 
             if self.icao_code_hex_missing:
-                log.info("[Monitor] Aircraft with non-matching ICAO Hex Code: %s", str(self.icao_code_hex_missing))
+                log.info("[Monitor] Aircraft with non-matching ICAO Hex Code: %s", sorted(self.icao_code_hex_missing))
 
         log.info("Monitor thread ended.")
 
@@ -272,21 +297,28 @@ class SkyWatch():
 
         start_time = time.time()
 
+        sbs_dict["enrich"] = {}
+
         hex_ident = sbs_dict.get("hex_ident", None)
-        sbs_dict["enrich_airplane"] = self.enrich_sbs_message_airplane(hex_ident)
+        sbs_dict["enrich"]["airplane"] = self.enrich_sbs_message_airplane(hex_ident)
 
-        airline_iata = utility.get_value(sbs_dict, ["enrich_airplane", "airline_iata_code"])
-        sbs_dict["enrich_airline"] = self.enrich_sbs_message_airline(airline_iata)
+        airline_iata = utility.get_value(sbs_dict, ["enrich", "airplane", "airline_iata_code"])
+        sbs_dict["enrich"]["airline"] = self.enrich_sbs_message_airline(airline_iata)
 
-        country_iso2 = utility.get_value(sbs_dict, ["enrich_airline", "country_iso2"])
-        sbs_dict["enrich_country"] = self.enrich_sbs_message_country(country_iso2)
+        country_iso2 = utility.get_value(sbs_dict, ["enrich", "airline", "country_iso2"])
+        sbs_dict["enrich"]["country"] = self.enrich_sbs_message_country(country_iso2)
 
-        iata_code_long = utility.get_value(sbs_dict, ["enrich_airplane", "iata_code_long"])
-        sbs_dict["enrich_svg"] = self.enrich_sbs_message_svg(iata_code_long)
+        sbs_dict["enrich"]["img"] = self.enrich_sbs_message_pic(hex_ident)
+
+        iata_code_long = utility.get_value(sbs_dict, ["enrich", "airplane", "iata_code_long"])
+        sbs_dict["enrich"]["svg"] = self.enrich_sbs_message_svg(iata_code_long)
 
         lat = sbs_dict.get("latitude", None)
         lon = sbs_dict.get("longitude", None)
-        sbs_dict["enrich_distance_km"] = self.enrich_sbs_message_distance(lat, lon)
+        distance_km = self.enrich_sbs_message_distance(lat, lon)
+        sbs_dict["enrich"]["distance_km"] = distance_km
+        if distance_km:
+            self.max_observed_distance_km = max(distance_km, self.max_observed_distance_km)
 
         duration = time.time() - start_time
         elapsed = utility.elapsed_format(duration)
@@ -312,7 +344,7 @@ class SkyWatch():
             output["iata_code_long"] = output.pop("ICAOTypeCode")
             return output
         else:
-            log.warning("get_aircraft_information failed: %s", output)
+            log.debug("get_aircraft_information failed: %s", output)
 
         self.icao_code_hex_missing.add(hex_ident)
         return None
@@ -348,6 +380,16 @@ class SkyWatch():
             log.warning("Multiple countries found with country_iso2 %s", country_iso2)
 
         return models_sql.model_to_dict(results[0])
+
+
+    def enrich_sbs_message_pic(self, hex_ident):
+
+        status, output = self.ps_h.get_aircraft_picture(hex_ident)
+        if not status:
+            log.warning("enrich_sbs_message_pic failed: %s", output)
+            return None
+
+        return output
 
 
     def enrich_sbs_message_svg(self, iata_code_long):
@@ -398,7 +440,7 @@ class SkyWatch():
 
     def send_alert(self, sbs_dict):
 
-        distance_km = sbs_dict.get("enrich_distance_km", None)
+        distance_km = utility.get_value(sbs_dict, ["enrich", "distance_km"])
         if not distance_km:
             return
 
@@ -411,12 +453,11 @@ class SkyWatch():
             return
 
         key = f"alerted:{hex_ident}"
-
         if self.redis.exists(key):
             return
+        # self.redis.set(key, 1, ex=600)  # 10 minutes expiration
 
-        # 1 hour expiration
-        self.redis.set(key, 1, ex=3600)
+        log.info("Sending alert for aircraft %s!", hex_ident)
 
         embed = (
             f"Callsign: {callsign or 'N/A'}\n"

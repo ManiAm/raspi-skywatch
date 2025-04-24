@@ -25,7 +25,7 @@ class Plane_Spotters_REST_API_Client(REST_API_Client):
         super().__init__(host, port, api_ver, base, user)
 
 
-    def get_aircraft_image(self, hex):
+    def get_aircraft_picture(self, hex):
 
         url = f"{self.baseurl}/photos/hex/{hex}"
 
@@ -33,12 +33,14 @@ class Plane_Spotters_REST_API_Client(REST_API_Client):
         if not status:
             return False, output
 
-        return True, output
+        photos = output.get("photos", None)
+
+        return True, photos
 
 
 if __name__ == "__main__":
 
     ps_h = Plane_Spotters_REST_API_Client(host="api.planespotters.net/pub")
 
-    status, output = ps_h.get_aircraft_image("4010EE")
-    status, output = ps_h.get_aircraft_image("44055E")
+    status, output = ps_h.get_aircraft_picture("4010EE")
+    status, output = ps_h.get_aircraft_picture("44055E")

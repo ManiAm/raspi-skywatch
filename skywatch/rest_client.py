@@ -8,7 +8,9 @@ import sys
 import json
 import logging
 import requests
+import inspect
 from dotenv import load_dotenv
+import models_redis
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 log = logging.getLogger(__name__)
@@ -69,7 +71,37 @@ class REST_API_Client():
         return False
 
 
-    def request(self, method, url, timeout=10, verify=True, stream=False, decode=True, **kwargs):
+    def request(self, method, url, timeout=10, verify=True, stream=False, decode=True, backoff_ttl=30, **kwargs):
+
+        frame = inspect.currentframe()
+        key = models_redis.get_key(frame)
+        key_error = f"error:{key}"
+
+        cached = models_redis.get_from_cache(key)
+        if cached:
+            return True, cached
+
+        cached = models_redis.get_from_cache(key_error)
+        if cached:
+            return False, cached
+
+        status, output = self.__request(method, url, timeout, verify, stream, decode, **kwargs)
+        if not status:
+            models_redis.set_to_cache(key_error, f"Skipping request to '{url}' for {backoff_ttl} seconds due to recent failure.", ttl=backoff_ttl)
+            return False, output
+
+        # Terms of use: API responses must not be stored for more than 24 hours.
+        if url.startswith("https://api.planespotters.net"):
+            ttl = 86400
+        else:
+            ttl = None
+
+        models_redis.set_to_cache(key, output, ttl=ttl)
+
+        return True, output
+
+
+    def __request(self, method, url, timeout, verify, stream, decode, **kwargs):
 
         try:
             response = requests.request(method,

@@ -4,10 +4,8 @@
 
 import getpass
 import logging
-import inspect
 
 from rest_client import REST_API_Client
-import models_redis
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 log = logging.getLogger(__name__)
@@ -40,19 +38,11 @@ class HEXDB_REST_API_Client(REST_API_Client):
                     "OperatorFlagCode": "EZY"
                 }
         """
-
-        frame = inspect.currentframe()
-        cached = models_redis.get_from_cache(frame)
-        if cached:
-            return True, cached
-
         url = f"{self.baseurl}/aircraft/{icao_hex_code}"
 
         status, output = self.request("GET", url)
         if not status:
             return False, output
-
-        models_redis.set_to_cache(frame, output)
 
         return True, output
 
@@ -73,18 +63,11 @@ class HEXDB_REST_API_Client(REST_API_Client):
                 }
         """
 
-        frame = inspect.currentframe()
-        cached = models_redis.get_from_cache(frame)
-        if cached:
-            return True, cached
-
         url = f"{self.baseurl}/airport/icao/{icao_code}"
 
         status, output = self.request("GET", url)
         if not status:
             return False, output
-
-        models_redis.set_to_cache(frame, output)
 
         return True, output
 
@@ -94,18 +77,11 @@ class HEXDB_REST_API_Client(REST_API_Client):
             Get airport info from IATA code.
         """
 
-        frame = inspect.currentframe()
-        cached = models_redis.get_from_cache(frame)
-        if cached:
-            return True, cached
-
         url = f"{self.baseurl}/airport/iata/{iata_code}"
 
         status, output = self.request("GET", url)
         if not status:
             return False, output
-
-        models_redis.set_to_cache(frame, output)
 
         return True, output
 

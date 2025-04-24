@@ -42,19 +42,17 @@ def get_key(frame):
     return sanitize_key(key_str)
 
 
-def get_from_cache(frame):
+def get_from_cache(key):
 
-    key = get_key(frame)
     val = r.get(key)
     if val:
         return json.loads(val)
     return None
 
 
-def set_to_cache(frame, data, ttl=None):
+def set_to_cache(key, data, ttl=None):
 
     try:
-        key = get_key(frame)
         value = json.dumps(data)
         r.set(key, value, ex=ttl)
     except redis.RedisError as e:
