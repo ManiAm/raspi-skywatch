@@ -8,6 +8,7 @@ import sys
 import os
 import signal
 import socket
+import gc
 import queue
 import threading
 import csv
@@ -32,7 +33,7 @@ log = logging.getLogger(__name__)
 class SkyWatch():
 
     def __init__(self,
-                 alert_radius_km=5,  # Alert if aircraft within this distance
+                 alert_radius_km=10,  # Alert if aircraft within this distance
                  home_lat=None,
                  home_lon=None,
                  gpsd_host="localhost",
@@ -108,7 +109,7 @@ class SkyWatch():
 
         log.info("Latitude: %s, Longitude: %s", self.home_lat, self.home_lon)
 
-        if csv_save:
+        if self.csv_save:
             self.init_csv()
 
         self.redis = redis.Redis(host="localhost", port=6379, db=0, decode_responses=True)
@@ -138,6 +139,8 @@ class SkyWatch():
 
 
     def init_csv(self):
+
+        log.info("Initializing CSV.")
 
         self.csv_file = open(self.csv_path, mode='a', newline='')
         self.csv_writer = csv.DictWriter(self.csv_file, fieldnames=self.sbs_field_names)
@@ -184,6 +187,9 @@ class SkyWatch():
 
             if self.icao_code_hex_missing:
                 log.info("[Monitor] Aircraft with non-matching ICAO Hex Code: %s", sorted(self.icao_code_hex_missing))
+
+            if self.running and self.csv_file:
+                self.csv_file.flush()
 
         log.info("Monitor thread ended.")
 
@@ -259,6 +265,7 @@ class SkyWatch():
         finally:
 
             log.info("Closing CSV file.")
+
             if self.csv_file:
                 self.csv_file.close()
 
@@ -274,7 +281,19 @@ class SkyWatch():
         if self.csv_writer:
             self.csv_writer.writerow(sbs_dict)
 
-        self.enrich_sbs_message(sbs_dict)
+        ######
+
+        distance_km = self.calculate_distance_to_base(sbs_dict)
+        sbs_dict["distance_km"] = distance_km
+
+        if distance_km:
+            self.max_observed_distance_km = max(distance_km, self.max_observed_distance_km)
+
+        ######
+
+        self.aggregate_sbs_messages(sbs_dict)
+
+        self.send_to_influx(sbs_dict)
 
         self.send_alert(sbs_dict)
 
@@ -290,6 +309,186 @@ class SkyWatch():
 
         sbs_dict = dict(zip(self.sbs_field_names, fields))
         return sbs_dict
+
+
+    def calculate_distance_to_base(self, sbs_dict):
+
+        lat = sbs_dict.get("latitude", None)
+        lon = sbs_dict.get("longitude", None)
+
+        if not lat or not lon:
+            return None
+
+        try:
+            lat = float(lat)
+            lon = float(lon)
+        except Exception:
+            return None
+
+        try:
+            home_coords = (self.home_lat, self.home_lon)
+            distance_km = geodesic(home_coords, (lat, lon)).km
+        except Exception:
+            return None
+
+        return distance_km
+
+    ###############################################################################
+
+    def aggregate_sbs_messages(self, sbs_dict, ttl_second=30*60):
+
+        hex_ident = sbs_dict.get("hex_ident", None)
+        if not hex_ident:
+            return
+
+        sbs_dict_clean = {
+            k: v for k, v in sbs_dict.items() if v
+        }
+
+        key = f"aircraft_aggregate:{hex_ident}"
+        self.redis.hset(key, mapping=sbs_dict_clean)
+        self.redis.expire(key, ttl_second)
+
+    ###############################################################################
+
+    def send_to_influx(self, sbs_dict):
+
+        hex_ident = sbs_dict.get("hex_ident", None)
+        if not hex_ident:
+            return
+
+        # find the corresponding aggregate key for this hex_ident
+        key = f"aircraft_aggregate:{hex_ident}"
+        sbs_dict_aggregate = self.redis.hgetall(key)
+        if not sbs_dict_aggregate:
+            return
+
+        # TODO
+
+    ###############################################################################
+
+    def send_alert(self, sbs_dict):
+
+        hex_ident = sbs_dict.get("hex_ident", None)
+        if not hex_ident:
+            return
+
+        distance_km = sbs_dict.get("distance_km", None)
+        if not distance_km:
+            return
+
+        alert_needed = distance_km <= self.alert_radius_km
+        if not alert_needed:
+            return
+
+        key_alert = f"alerted:{hex_ident}"
+        if self.redis.exists(key_alert):
+            return
+
+        # find the corresponding aggregate key for this hex_ident
+        key = f"aircraft_aggregate:{hex_ident}"
+        sbs_dict_aggregate = self.redis.hgetall(key)
+        if not sbs_dict_aggregate:
+            return
+
+        callsign = sbs_dict_aggregate.get("callsign", None)
+        if not callsign:
+            return
+
+        log.info("Sending alert for aircraft %s!", hex_ident)
+
+        self.redis.set(key_alert, 1, ex=600)  # 10 minutes expiration
+
+        self.enrich_sbs_message(sbs_dict_aggregate)
+
+        embed = self.format_sbs_embed(sbs_dict_aggregate)
+
+        status, response = self.discord.send_discord_message(content="✈️ Nearby aircraft detected!", embed=embed)
+        if not status:
+            log.error(f"Failed to send msg to discord.\n{response}")
+
+
+    def format_sbs_embed(self, sbs_dict):
+
+        icao_hex = sbs_dict.get("hex_ident") or "Unknown"  # AA8114
+        callsign = sbs_dict.get("callsign") or "Unknown"
+
+        latitude = sbs_dict.get("latitude") or "Unknown"   # 37.78368
+        longitude = sbs_dict.get("longitude") or "Unknown" # -122.15441
+        altitude = sbs_dict.get("altitude") or "Unknown"   # 7950
+
+        ground_speed = sbs_dict.get("ground_speed") or "Unknown"
+
+        distance_km = sbs_dict.get("distance_km")  # 16.653894117511463
+        if distance_km:
+            distance_km = round(float(distance_km), 2)
+        else:
+            distance_km = "Unknown"
+
+        enrich_dict = sbs_dict.get("enrich", {})
+
+        registration_number = utility.get_value(enrich_dict, ["airplane", "registration_number"]) or "Unknown" # N776UA
+        iata_code_long = utility.get_value(enrich_dict, ["airplane", "iata_code_long"]) or "Unknown"  # B772
+
+        airline_name = utility.get_value(enrich_dict, ["airline", "airline_name"]) or "Unknown"
+        country_name = utility.get_value(enrich_dict, ["airline", "country_name"]) or "Unknown"
+
+        thumbnail_url = ""
+        img_list = utility.get_value(enrich_dict, ["img"])
+        if img_list:
+            first_img = img_list[0]
+            thumbnail_url = utility.get_value(first_img, ["thumbnail_large", "src"])
+
+        return {
+            "title": icao_hex,
+            "description": f"Detected {distance_km} km from base at {altitude} ft.",
+            "color": 0x1abc9c,  # Teal
+            "fields": [
+                {
+                  "name": "Flight Number",
+                  "value": str(callsign),
+                  "inline": True
+                },
+                {
+                  "name": "Registration Number",
+                  "value": str(registration_number),
+                  "inline": True
+                },
+                {
+                  "name": "Aircraft Type",
+                  "value": str(iata_code_long),
+                  "inline": True
+                },
+                {
+                  "name": "Latitude",
+                  "value": str(latitude),
+                  "inline": True
+                },
+                {
+                  "name": "Longitude",
+                  "value": str(longitude),
+                  "inline": True
+                },
+                {
+                  "name": "Ground Speed",
+                  "value": str(ground_speed),
+                  "inline": True
+                },
+                {
+                  "name": "Airline Name",
+                  "value": str(airline_name),
+                  "inline": True
+                },
+                {
+                  "name": "Country Name",
+                  "value": str(country_name),
+                  "inline": True
+                }
+            ],
+            "image": {
+                "url": thumbnail_url
+            }
+        }
 
     ###############################################################################
 
@@ -313,13 +512,6 @@ class SkyWatch():
         iata_code_long = utility.get_value(sbs_dict, ["enrich", "airplane", "iata_code_long"])
         sbs_dict["enrich"]["svg"] = self.enrich_sbs_message_svg(iata_code_long)
 
-        lat = sbs_dict.get("latitude", None)
-        lon = sbs_dict.get("longitude", None)
-        distance_km = self.enrich_sbs_message_distance(lat, lon)
-        sbs_dict["enrich"]["distance_km"] = distance_km
-        if distance_km:
-            self.max_observed_distance_km = max(distance_km, self.max_observed_distance_km)
-
         duration = time.time() - start_time
         elapsed = utility.elapsed_format(duration)
         log.debug("Enriching SBS message completed in %s", elapsed)
@@ -340,10 +532,21 @@ class SkyWatch():
             return models_sql.model_to_dict(results[0])
 
         status, output = self.hexdb.get_aircraft_information(hex_ident)
+
         if status:
+
+            output["icao_code_hex"] = output.pop("ModeS")
+            output["registration_number"] = output.pop("Registration")
+            # output["?"] = output.pop("Manufacturer")  # Airbus
             output["iata_code_long"] = output.pop("ICAOTypeCode")
+            output["iata_type"] = output.pop("Type")    # 'A319 111', 'Global 5000'
+            output["plane_owner"] = output.pop("RegisteredOwners")  # easyJet UK
+            # output["?"] = output.pop("OperatorFlagCode")          # EZY
+
             return output
+
         else:
+
             log.debug("get_aircraft_information failed: %s", output)
 
         self.icao_code_hex_missing.add(hex_ident)
@@ -416,60 +619,6 @@ class SkyWatch():
 
         return svg
 
-
-    def enrich_sbs_message_distance(self, lat, lon):
-
-        if not lat or not lon:
-            return None
-
-        try:
-            lat = float(lat)
-            lon = float(lon)
-        except Exception:
-            return None
-
-        try:
-            home_coords = (self.home_lat, self.home_lon)
-            distance_km = geodesic(home_coords, (lat, lon)).km
-        except Exception:
-            return None
-
-        return distance_km
-
-    ###############################################################################
-
-    def send_alert(self, sbs_dict):
-
-        distance_km = utility.get_value(sbs_dict, ["enrich", "distance_km"])
-        if not distance_km:
-            return
-
-        alert_needed = distance_km <= self.alert_radius_km
-        if not alert_needed:
-            return
-
-        hex_ident = sbs_dict.get("hex_ident", None)
-        if not hex_ident:
-            return
-
-        key = f"alerted:{hex_ident}"
-        if self.redis.exists(key):
-            return
-        # self.redis.set(key, 1, ex=600)  # 10 minutes expiration
-
-        log.info("Sending alert for aircraft %s!", hex_ident)
-
-        embed = (
-            f"Callsign: {callsign or 'N/A'}\n"
-            f"Altitude: {altitude} ft\n"
-            f"Speed: {speed} kt\n"
-            f"Distance: {distance_km:.1f} km\n"
-            f"ICAO: {icao}, Reg: {registration}, Type: {aircraft_type}")
-
-        status, response = self.discord.send_discord_message(content="✈️ Nearby aircraft detected!", embed=embed)
-        if not status:
-            log.error(f"Failed to send msg to discord.\n{response}")
-
     ###############################################################################
 
 sw_h = None
@@ -485,7 +634,9 @@ def handle_sigint(signum, frame):
 
 signal.signal(signal.SIGINT, handle_sigint)
 
+gc.collect()
+
 models_sql.init_db()
 
-sw_h = SkyWatch(csv_save=False)
+sw_h = SkyWatch(csv_save=False, alert_radius_km=3)
 sw_h.start()

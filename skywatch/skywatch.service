@@ -1,0 +1,13 @@
+[Unit]
+Description=Skywatch service
+After=network.target
+
+[Service]
+Type=simple
+User=admin
+WorkingDirectory=/opt/rp_cluster/raspi-skywatch/skywatch
+ExecStart=/home/admin/skywatch_venv/bin/python skywatch.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

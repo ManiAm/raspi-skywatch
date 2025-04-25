@@ -328,7 +328,37 @@ Upon the first run, allow a few minutes for the PostgreSQL database to complete 
 
 If an aircraft's hex code cannot be resolved or matched, the monitor thread logs a notification indicating the missing information.
 
+Below are sample Discord notifications sent by SkyWatch while actively monitoring the airspace surrounding my location. Each message represents a real-time detection of nearby aircraft, enriched with flight and airline data.
 
+<img src="pics/discord_notf.jpg" alt="segment" width="1000">
 
+All aircraft images are provided courtesy of [PlaneSpotters.net](https://www.planespotters.net/).
 
-<img src="pics/alert_discord.jpg" alt="segment" width="800">
+## Run as a systemd Service
+
+To run the skywatch process in the background and start it on system boot:
+
+1. Copy the service file:
+```bash
+sudo cp skywatch.service /etc/systemd/system/skywatch.service
+```
+
+2. Reload systemd and start the service:
+```bash
+sudo systemctl daemon-reexec
+sudo systemctl daemon-reload
+sudo systemctl enable skywatch
+sudo systemctl start skywatch
+```
+
+3. Check status and logs:
+```bash
+sudo systemctl status skywatch
+```
+
+4. On service failure check the journal logs:
+```bash
+journalctl -u skywatch -n 50 --no-pager
+```
+
+Ensure that your virtual environment and script paths are correctly set in the service file.
