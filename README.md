@@ -336,14 +336,16 @@ All aircraft images are provided courtesy of [PlaneSpotters.net](https://www.pla
 
 ## Run as a systemd Service
 
-To run the skywatch process in the background and start it on system boot:
+To run the project in the background and start it on system boot:
 
 1. Copy the service file:
+
 ```bash
 sudo cp skywatch.service /etc/systemd/system/skywatch.service
 ```
 
 2. Reload systemd and start the service:
+
 ```bash
 sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
@@ -352,11 +354,13 @@ sudo systemctl start skywatch
 ```
 
 3. Check status and logs:
+
 ```bash
 sudo systemctl status skywatch
 ```
 
 4. On service failure check the journal logs:
+
 ```bash
 journalctl -u skywatch -n 50 --no-pager
 ```
