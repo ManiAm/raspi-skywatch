@@ -24,7 +24,7 @@ For more background on how ADS-B works and the data used by this project, see [B
 
 The hardware configuration of skyWatch project is like the following:
 
-<img src="pics/hw_config.jpg" alt="segment" width="800">
+<img src="pics/hw_config.jpg" alt="segment" width="700">
 
 The signal flow is:
 
@@ -42,7 +42,7 @@ The signal flow is:
 
 - 1090 MHz Antenna
 
-    The antenna is the starting point of the ADS-B receiver setup. It captures radio signals broadcast by aircraft on the 1090 MHz frequency, which include position, altitude, velocity, and identification data. The quality and placement of the antenna are critical — placing it near a window or outdoors with a clear view of the sky significantly improves reception. A high-gain, tuned antenna ensures that weak and distant signals can be picked up effectively.
+    The antenna is the starting point of the ADS-B receiver setup. It captures radio signals broadcast by aircraft on the 1090 MHz frequency, which include position, altitude, velocity, and identification data. The quality and placement of the antenna are critical - placing it near a window or outdoors with a clear view of the sky significantly improves reception. A high-gain, tuned antenna ensures that weak and distant signals can be picked up effectively.
 
     | **Factor**                   | **Impact**                                     |
     |------------------------------|------------------------------------------------|
@@ -74,7 +74,7 @@ The signal flow is:
                     └──> [Web UI like SkyAware or Virtual Radar Server (VRS)]
     ```
 
-    dump1090 decodes the ADS-B messages and can display aircraft positions on a real-time map using the SkyAware web interface. Additionally, the Pi can run feeder clients like PiAware, FR24 Feeder, or RBFeeder to send this decoded data to global flight tracking networks. This stage is the brain of the operation — decoding, visualizing, and sharing live aircraft data.
+    dump1090 decodes the ADS-B messages and can display aircraft positions on a real-time map using the SkyAware web interface. Additionally, the Pi can run feeder clients like PiAware, FR24 Feeder, or RBFeeder to send this decoded data to global flight tracking networks. This stage is the brain of the operation - decoding, visualizing, and sharing live aircraft data.
 
 To check if the FlightAware Pro Stick Plus is properly connected and recognized by Raspberry Pi:
 
@@ -214,7 +214,7 @@ tar1090 is an enhanced web-based interface for visualizing real-time and histori
 
     http://pihole.home:8078/
 
-Designed for enthusiasts and advanced users, it provides a dynamic map showing aircraft positions, persistent flight tracks, signal coverage plots, heatmaps, and performance graphs — all rendered in the browser. Unlike the default SkyAware UI, tar1090 adds powerful features like time-lapse playback, distance-based filtering, and range history, making it a popular choice for building fully-featured local radar stations.
+Designed for enthusiasts and advanced users, it provides a dynamic map showing aircraft positions, persistent flight tracks, signal coverage plots, heatmaps, and performance graphs - all rendered in the browser. Unlike the default SkyAware UI, tar1090 adds powerful features like time-lapse playback, distance-based filtering, and range history, making it a popular choice for building fully-featured local radar stations.
 
 | Feature                           | SkyAware UI         | tar1090 (Enhanced UI)                                      |
 |-----------------------------------|---------------------|------------------------------------------------------------|
@@ -269,7 +269,7 @@ Incoming SBS messages are first inserted into a message queue. A dedicated proce
 
 <img src="pics/shapes.jpg" alt="segment" width="600">
 
-Efficient and timely processing is critical. If the enrichment process is slower than the rate at which messages are being added to the queue, the queue may fill up and begin dropping new incoming messages. To mitigate this risk, effective caching strategies are essential—particularly when external REST API calls are required during enrichment.
+Efficient and timely processing is critical. If the enrichment process is slower than the rate at which messages are being added to the queue, the queue may fill up and begin dropping new incoming messages. To mitigate this risk, effective caching strategies are essential - particularly when external REST API calls are required during enrichment.
 
 Set up a Python virtual environment and install the required dependencies listed in requirements.txt:
 
@@ -316,7 +316,7 @@ Listening on localhost:30003 (SBS-1)
 [Monitor] Aircraft with non-matching ICAO Hex Code: {'A4CAA2'}
 ```
 
-Upon the first run, allow a few minutes for the PostgreSQL database to complete its initialization process. During this time, necessary JSON and CSV data files are loaded into the database. A dedicated monitor thread outputs real-time system metrics to stdout, including the SBS message receive rate, message processing rate, and the maximum observed aircraft distance. In my tests using an indoor antenna positioned behind a window, the maximum observed distance reached was approximately 80 km. Note that weather and aircraft altitude affect signal visibility too.
+Upon the first run, allow a few minutes for the PostgreSQL database to complete its initialization process. During this time, necessary JSON and CSV data files are loaded into the database. A dedicated monitor thread outputs real-time system metrics to stdout, including the SBS message receive rate, message processing rate, and the maximum observed aircraft distance. In my tests using an indoor antenna positioned behind a window, the maximum observed distance reached was approximately 130 km. Note that weather and aircraft altitude affect signal visibility too.
 
 | **Setup Location**        | **Expected Range**            |
 |---------------------------|-------------------------------|
