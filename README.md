@@ -24,7 +24,7 @@ For more background on how ADS-B works and the data used by this project, see [B
 
 The hardware configuration of skyWatch project is like the following:
 
-<img src="pics/hw_config.jpg" alt="segment" width="800">
+<img src="pics/hw_config.jpg" alt="segment" width="700">
 
 The signal flow is:
 
@@ -316,7 +316,7 @@ Listening on localhost:30003 (SBS-1)
 [Monitor] Aircraft with non-matching ICAO Hex Code: {'A4CAA2'}
 ```
 
-Upon the first run, allow a few minutes for the PostgreSQL database to complete its initialization process. During this time, necessary JSON and CSV data files are loaded into the database. A dedicated monitor thread outputs real-time system metrics to stdout, including the SBS message receive rate, message processing rate, and the maximum observed aircraft distance. In my tests using an indoor antenna positioned behind a window, the maximum observed distance reached was approximately 80 km. Note that weather and aircraft altitude affect signal visibility too.
+Upon the first run, allow a few minutes for the PostgreSQL database to complete its initialization process. During this time, necessary JSON and CSV data files are loaded into the database. A dedicated monitor thread outputs real-time system metrics to stdout, including the SBS message receive rate, message processing rate, and the maximum observed aircraft distance. In my tests using an indoor antenna positioned behind a window, the maximum observed distance reached was approximately 130 km. Note that weather and aircraft altitude affect signal visibility too.
 
 | **Setup Location**        | **Expected Range**            |
 |---------------------------|-------------------------------|
