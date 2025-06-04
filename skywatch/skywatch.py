@@ -40,8 +40,8 @@ class SkyWatch():
                  gpsd_port=2947,
                  dump1090_host="localhost",
                  dump1090_port=30003,
-                 csv_save=True,
-                 csv_path="aircraft_log.csv",
+                 sbs_csv_save=True,
+                 sbs_csv_path="aircraft_log.csv",
                  monitor_interval=10):
 
         self.alert_radius_km = alert_radius_km
@@ -54,8 +54,8 @@ class SkyWatch():
         self.dump1090_host = dump1090_host
         self.dump1090_port = dump1090_port
 
-        self.csv_save = csv_save
-        self.csv_path = csv_path
+        self.sbs_csv_save = sbs_csv_save
+        self.sbs_csv_path = sbs_csv_path
 
         self.monitor_interval = monitor_interval
 
@@ -109,16 +109,16 @@ class SkyWatch():
 
         log.info("Latitude: %s, Longitude: %s", self.home_lat, self.home_lon)
 
-        if self.csv_save:
+        if self.sbs_csv_save:
             self.init_csv()
 
         self.redis = redis.Redis(host="localhost", port=6379, db=0, decode_responses=True)
         self.postgresql_session = models_sql.Session(bind=models_sql.engine)
 
-        self.hexdb = HEXDB_REST_API_Client(host="hexdb.io/api", api_ver="v1")
-        self.ps_h = Plane_Spotters_REST_API_Client(host="api.planespotters.net/pub")
+        self.hexdb = HEXDB_REST_API_Client(url="https://hexdb.io/api", api_ver="v1")
+        self.ps_h = Plane_Spotters_REST_API_Client(url="https://api.planespotters.net/pub")
 
-        self.discord = Discord_Webhook(host="discord.com", base="api/webhooks")
+        self.discord = Discord_Webhook(url="https://discord.com", base="api/webhooks")
 
     ###############################################################################
 
@@ -142,11 +142,11 @@ class SkyWatch():
 
         log.info("Initializing CSV.")
 
-        self.csv_file = open(self.csv_path, mode='a', newline='')
+        self.csv_file = open(self.sbs_csv_path, mode='a', newline='')
         self.csv_writer = csv.DictWriter(self.csv_file, fieldnames=self.sbs_field_names)
 
         # Write header if file is new
-        if os.stat(self.csv_path).st_size == 0:
+        if os.stat(self.sbs_csv_path).st_size == 0:
             self.csv_writer.writeheader()
 
     ###############################################################################
@@ -638,5 +638,5 @@ gc.collect()
 
 models_sql.init_db()
 
-sw_h = SkyWatch(csv_save=False, alert_radius_km=3)
+sw_h = SkyWatch(sbs_csv_save=False, alert_radius_km=3)
 sw_h.start()

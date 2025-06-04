@@ -21,25 +21,17 @@ load_dotenv()
 class REST_API_Client():
 
     def __init__(self,
-                 host=None,
-                 port=None,
+                 url,
                  api_ver=None,
                  base=None,
                  user=None):
 
-        if not host:
-            log.error("host is missing!")
-            sys.exit(2)
 
-        if not REST_API_Client.__with_http_prefix(host):
-            host_address = f'https://{host}'
-        else:
-            host_address = host
+        if not REST_API_Client.__with_http_prefix(url):
+            log.error(f"Invalid url: {url}")
+            sys.exit(1)
 
-        if port:
-            host_address += f':{port}'
-
-        self.baseurl = f'{host_address}'
+        self.baseurl = url
 
         if api_ver:
             self.baseurl += f'/{api_ver}'

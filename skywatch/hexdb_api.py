@@ -14,13 +14,12 @@ log = logging.getLogger(__name__)
 class HEXDB_REST_API_Client(REST_API_Client):
 
     def __init__(self,
-                 host=None,
-                 port=None,
+                 url,
                  api_ver=None,
                  base=None,
                  user=getpass.getuser()):
 
-        super().__init__(host, port, api_ver, base, user)
+        super().__init__(url, api_ver, base, user)
 
 
     def get_aircraft_information(self, icao_hex_code):
@@ -130,7 +129,7 @@ class HEXDB_REST_API_Client(REST_API_Client):
 
 if __name__ == "__main__":
 
-    hexdb = HEXDB_REST_API_Client(host="hexdb.io/api", api_ver="v1")
+    hexdb = HEXDB_REST_API_Client(url="https://hexdb.io/api", api_ver="v1")
 
     status, output1 = hexdb.get_aircraft_information("4010EE")
     status, output2 = hexdb.get_aircraft_information("A68631")

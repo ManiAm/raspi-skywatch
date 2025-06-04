@@ -17,13 +17,12 @@ log = logging.getLogger(__name__)
 class Aviation_Stack_REST_API_Client(REST_API_Client):
 
     def __init__(self,
-                 host=None,
-                 port=None,
+                 url,
                  api_ver=None,
                  base=None,
                  user=getpass.getuser()):
 
-        super().__init__(host, port, api_ver, base, user)
+        super().__init__(url, api_ver, base, user)
 
         self.access_token = os.getenv('AVIATION_STACK_API_TOKEN', None)
 
@@ -413,7 +412,7 @@ class Aviation_Stack_REST_API_Client(REST_API_Client):
 
 if __name__ == "__main__":
 
-    as_h = Aviation_Stack_REST_API_Client(host="api.aviationstack.com", api_ver="v1")
+    as_h = Aviation_Stack_REST_API_Client(url="https://api.aviationstack.com", api_ver="v1")
 
     status, output = as_h.get_flights(flight_number="UA549")
 

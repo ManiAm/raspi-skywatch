@@ -17,13 +17,12 @@ log = logging.getLogger(__name__)
 class AirLabs_REST_API_Client(REST_API_Client):
 
     def __init__(self,
-                 host=None,
-                 port=None,
+                 url,
                  api_ver=None,
                  base=None,
                  user=getpass.getuser()):
 
-        super().__init__(host, port, api_ver, base, user)
+        super().__init__(url, api_ver, base, user)
 
         self.access_token = os.getenv('AIRLAB_API_TOKEN', None)
 
@@ -35,7 +34,7 @@ class AirLabs_REST_API_Client(REST_API_Client):
 
 if __name__ == "__main__":
 
-    al_h = AirLabs_REST_API_Client(host="airlabs.co/api/", api_ver="v9")
+    al_h = AirLabs_REST_API_Client(url="https://airlabs.co/api/", api_ver="v9")
 
     status, output = al_h.get_flights()
 

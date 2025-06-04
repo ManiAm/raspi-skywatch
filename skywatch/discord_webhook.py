@@ -24,13 +24,12 @@ log = logging.getLogger(__name__)
 class Discord_Webhook(REST_API_Client):
 
     def __init__(self,
-                 host=None,
-                 port=None,
+                 url,
                  api_ver=None,
                  base=None,
                  user=getpass.getuser()):
 
-        super().__init__(host, port, api_ver, base, user)
+        super().__init__(url, api_ver, base, user)
 
         self.webhook_id = os.getenv('WEBHOOK_ID', None)
         self.webhook_token = os.getenv('WEBHOOK_TOKEN', None)
@@ -56,7 +55,7 @@ class Discord_Webhook(REST_API_Client):
 
 if __name__ == "__main__":
 
-    discord = Discord_Webhook(host="discord.com", base="api/webhooks")
+    discord = Discord_Webhook(url="https://discord.com", base="api/webhooks")
 
     embed = {
         "title": "sample title",
